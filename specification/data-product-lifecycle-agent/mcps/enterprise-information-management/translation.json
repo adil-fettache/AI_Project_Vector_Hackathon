@@ -1,0 +1,600 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:EnterpriseInformationManagement:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/enterprise_information_management",
+    "title": "enterprise_information_management",
+    "version": "1.0.0",
+    "description": "MCP server for the enterprise_information_management service."
+  },
+  "tools": [
+    {
+      "name": "GET_tasks",
+      "title": "GET_tasks",
+      "description": "Returns a list of available tasks in the catalog of the SAP HANA system to which you are connected. SAP Web IDE package and flowgraph names are used to create task names. For example, `<package>::<flowgraph>`.",
+      "openApiType": {
+        "path": "/tasks",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "count",
+            "description": "Return the number of available tasks instead of a list of available tasks.",
+            "in": "query",
+            "newParameterName": "count"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "GET_tasks_taskName",
+      "title": "GET_tasks_taskName",
+      "description": "Returns the metadata of a specific task.",
+      "openApiType": {
+        "path": "/tasks/{taskName}",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task for which you want detailed metadata. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "GET_tasks_taskName_tableTypes",
+      "title": "GET_tasks_taskName_tableTypes",
+      "description": "Returns table type information for a particular task.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/tableTypes",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task for which you want table type information. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          },
+          {
+            "name": "count",
+            "description": "Return the number of table types instead of a list of table types.",
+            "in": "query",
+            "newParameterName": "count"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "GET_tasks_taskName_executions",
+      "title": "GET_tasks_taskName_executions",
+      "description": "Retrieves all task execution data for a task that has been started programmatically.\nFor realtime tasks, returns the full details of the initial load and an aggregated summary for delta load tasks. For transactional tasks, returns only the aggregated summary of the task executions.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/executions",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task for which you want execution data. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "count",
+            "description": "Return the number of executions for the specified task instead of the execution details.",
+            "in": "query",
+            "newParameterName": "count"
+          },
+          {
+            "name": "summary",
+            "description": "Return a summary of task execution information instead of execution details.",
+            "in": "query",
+            "newParameterName": "summary"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "addtasks",
+      "title": "addtasks",
+      "description": "Programmatically starts execution of a particular task.",
+      "openApiType": {
+        "operationId": "addtasks",
+        "parameters": [
+          {
+            "name": "taskExecutionOptions",
+            "description": "Runtime parameters and data for the execution of a task. Information such as record data for a transactional task, substitution parameters, and table type parameters.\nIf executing a task that requires providing task data, table types, or parameter values via the request body, these values must be sent in JSON format and the request header content-type needs to be set to 'application/json'.\nFor example: `content-type = \"application/json\"`"
+          },
+          {
+            "name": "taskName",
+            "description": "Name of the task you want to start. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "PUT_tasks_taskName_executions",
+      "title": "PUT_tasks_taskName_executions",
+      "description": "Cancels the execution of a realtime flowgraph. This method works for realtime flowgraphs only because batch uses an execution ID. Canceling a realtime flow graph also resets the remote subscription.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/executions",
+        "method": "put",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task to cancel. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "waitTime",
+            "description": "Time in seconds to wait for task to cancel before returning.",
+            "in": "query",
+            "newParameterName": "waittime"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.\"",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "DELETE_tasks_taskName_executions",
+      "title": "DELETE_tasks_taskName_executions",
+      "description": "Deletes all task execution data for the specified task.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/executions",
+        "method": "delete",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task for which to delete execution data. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "retention",
+            "description": "Retention period for task execution data, in seconds. All data that is older than this value is deleted.",
+            "in": "query",
+            "newParameterName": "retention"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "GET_tasks_taskName_executions_execId",
+      "title": "GET_tasks_taskName_executions_execId",
+      "description": "Returns task execution details for a single distinct execution of the specified task.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/executions/{execId}",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "execId",
+            "description": "ID of the specific task execution. The task execution ID is returned as `taskExecutionId` in the GET/tasks/{taskName}/executions response.",
+            "in": "path",
+            "newParameterName": "execid"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "PUT_tasks_taskName_executions_execId",
+      "title": "PUT_tasks_taskName_executions_execId",
+      "description": "Stops the execution of a single distinct execution of the specified task.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/executions/{execId}",
+        "method": "put",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "execId",
+            "description": "ID of the specific task execution. The task execution ID is returned as `taskExecutionId` in the GET/tasks/{taskName}/executions response.",
+            "in": "path",
+            "newParameterName": "execid"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          },
+          {
+            "name": "taskName",
+            "description": "Name of the task you want to stop. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname_2"
+          },
+          {
+            "name": "execId",
+            "description": "ID of the specific task execution you want to stop. The task execution ID is returned as taskExecutionId in the GET/tasks/{taskName}/executions response.",
+            "in": "path",
+            "newParameterName": "execid_2"
+          },
+          {
+            "name": "waitTime",
+            "description": "Time in seconds to wait for task to cancel before returning.",
+            "in": "query",
+            "newParameterName": "waittime"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "DELETE_tasks_taskName_executions_execId",
+      "title": "DELETE_tasks_taskName_executions_execId",
+      "description": "Deletes the task execution details for a single distinct execution of the specified task.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/executions/{execId}",
+        "method": "delete",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "execId",
+            "description": "ID of the specific task execution. The task execution ID is returned as `taskExecutionId` in the GET/tasks/{taskName}/executions response.",
+            "in": "path",
+            "newParameterName": "execid"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "GET_tasks_taskName_executions_execId_partitions",
+      "title": "GET_tasks_taskName_executions_execId_partitions",
+      "description": "Returns partition information for a single distinct execution of the specified task.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/executions/{execId}/partitions",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task for which you want partition information. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "execId",
+            "description": "ID of the specific task execution for which you want partition information. The task execution ID is returned as taskExecutionId in the GET/tasks/{taskName}/executions response.",
+            "in": "path",
+            "newParameterName": "execid"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "GET_tasks_taskName_executions_execId_operations",
+      "title": "GET_tasks_taskName_executions_execId_operations",
+      "description": "Returns operation-level details for a single distinct execution of the specified task.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/executions/{execId}/operations",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task for which you want operation-level details. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "execId",
+            "description": "ID of the specific task execution for which you want operation-level details. The task execution ID is returned as taskExecutionId in the GET/tasks/{taskName}/executions response.",
+            "in": "path",
+            "newParameterName": "execid"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "GET_tasks_taskName_executions_execId_messages",
+      "title": "GET_tasks_taskName_executions_execId_messages",
+      "description": "Returns runtime messages associated with a single distinct execution of the specified task.",
+      "openApiType": {
+        "path": "/tasks/{taskName}/executions/{execId}/messages",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "taskName",
+            "description": "Name of the task for which you want runtime messages. The task name must be specified in the same form it is returned in the GET/tasks response. For example, `<package>::<flowgraph>`.",
+            "in": "path",
+            "newParameterName": "taskname"
+          },
+          {
+            "name": "execId",
+            "description": "ID of the specific task execution for which you want runtime messages. The task execution ID is returned as taskExecutionId in the GET/tasks/{taskName}/executions response.",
+            "in": "path",
+            "newParameterName": "execid"
+          },
+          {
+            "name": "severity",
+            "description": "Severity of the messages to return. If severity is not specified, returns all runtime messages for the task execution.",
+            "in": "query",
+            "newParameterName": "severity"
+          },
+          {
+            "name": "count",
+            "description": "Return the number of messages for the specified task execution instead of the message details.",
+            "in": "query",
+            "newParameterName": "count"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the task. Required for catalog tasks that are not created through a flowgraph, where tasks with the same name exist in multiple schemas.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "GET_virtualTables",
+      "title": "GET_virtualTables",
+      "description": "Returns a list of all registered virtual tables.",
+      "openApiType": {
+        "path": "/virtualTables",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "count",
+            "description": "Return the number of available virtual tables instead of a list of virtual tables.",
+            "in": "query",
+            "newParameterName": "count"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "GET_virtualTables_table",
+      "title": "GET_virtualTables_table",
+      "description": "Returns details allowing you to further identify a particular virtual table.\nFor example, if there is a virtual table named CONTACTS in schema A and a virtual table named CONTACTS in schema B, then you will need to specify the schema in order to correctly identify the correct table named CONTACTS for which you are looking.",
+      "openApiType": {
+        "path": "/virtualTables/{table}",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "table",
+            "description": "Name of the virtual table.",
+            "in": "path",
+            "newParameterName": "table"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the table. Required if the virtual table name exists in more than one schema.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "POST_virtualTables_table",
+      "title": "POST_virtualTables_table",
+      "description": "Creates a new virtual table with the specified name in the catalog.",
+      "openApiType": {
+        "path": "/virtualTables/{table}",
+        "method": "post",
+        "parameters": [
+          {
+            "name": "table",
+            "description": "Name of the virtual table.",
+            "in": "path",
+            "newParameterName": "table"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the table. Required if the virtual table name exists in more than one schema.",
+            "in": "query",
+            "newParameterName": "schema"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "DELETE_virtualTables_table",
+      "title": "DELETE_virtualTables_table",
+      "description": "Deletes a virtual table from the catalog.\n`CASCADE` drops the virtual table and dependent objects while `RESTRICT` will drop the virtual table only when dependent objects do not exist.",
+      "openApiType": {
+        "path": "/virtualTables/{table}",
+        "method": "delete",
+        "parameters": [
+          {
+            "name": "table",
+            "description": "Name of the virtual table.",
+            "in": "path",
+            "newParameterName": "table"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the table. Required if the virtual table name exists in more than one schema.",
+            "in": "query",
+            "newParameterName": "schema"
+          },
+          {
+            "name": "table",
+            "description": "Name of the virtual table to delete.",
+            "in": "path",
+            "newParameterName": "table_2"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the table. Required if the virtual table name exists in more than one schema.",
+            "in": "query",
+            "newParameterName": "schema_2"
+          },
+          {
+            "name": "dropOptions",
+            "description": "Table drop options.",
+            "in": "query",
+            "newParameterName": "dropoptions"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "GET_virtualTables_table_properties",
+      "title": "GET_virtualTables_table_properties",
+      "description": "Retrieves the property information for a specific virtual table in the catalog.",
+      "openApiType": {
+        "path": "/virtualTables/{table}/properties",
+        "method": "get",
+        "parameters": [
+          {
+            "name": "table",
+            "description": "Name of the virtual table for which you want to return property information.",
+            "in": "path",
+            "newParameterName": "table"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the table. Required if the virtual table name exists in more than one schema.",
+            "in": "query",
+            "newParameterName": "schema"
+          },
+          {
+            "name": "column",
+            "description": "If present, returns column properties for the specified column name.",
+            "in": "query",
+            "newParameterName": "column"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "PUT_virtualTables_table_properties",
+      "title": "PUT_virtualTables_table_properties",
+      "description": "Modifies the properties of an existing virtual table in the catalog.",
+      "openApiType": {
+        "path": "/virtualTables/{table}/properties",
+        "method": "put",
+        "parameters": [
+          {
+            "name": "table",
+            "description": "Name of the virtual table that you want to modify.",
+            "in": "path",
+            "newParameterName": "table"
+          },
+          {
+            "name": "schema",
+            "description": "Name of the catalog schema that contains the table. Required if the virtual table name exists in more than one schema.",
+            "in": "query",
+            "newParameterName": "schema"
+          },
+          {
+            "name": "set",
+            "description": "Specifies whether to set or unset a property.",
+            "in": "query",
+            "newParameterName": "set"
+          },
+          {
+            "name": "column",
+            "description": "When used in conjunction with the set parameter, it lets you set and unset virtual table column properties.",
+            "in": "query",
+            "newParameterName": "column"
+          }
+        ],
+        "requestBody": {}
+      }
+    }
+  ]
+}

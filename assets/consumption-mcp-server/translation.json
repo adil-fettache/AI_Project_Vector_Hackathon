@@ -1,0 +1,23 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:Consumption:v1",
+    "type": "edmx"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/standaloneservice",
+    "title": "standaloneservice",
+    "version": "1.0.0",
+    "description": "MCP server for the standaloneservice service."
+  },
+  "tools": [
+    {"name": "get_metadata_standaloneservice", "description": "Get metadata of the OData consumption service."},
+    {"name": "batch_for_standaloneservice", "description": "Execute multiple OData operations in a single batch request."},
+    {"name": "list_your_entity_name_for_standaloneservice", "description": "Retrieve a list of entities from the consumption service."},
+    {"name": "create_your_entity_name_for_standaloneservice", "description": "Create a new entity instance in the consumption service."},
+    {"name": "update_your_entity_name_for_standaloneservice", "description": "Update an entity in the consumption service."},
+    {"name": "delete_your_entity_name_for_standaloneservice", "description": "Delete an entity from the consumption service."},
+    {"name": "get_your_entity_name_for_standaloneservice", "description": "Retrieve a single entity by key from the consumption service."},
+    {"name": "count_your_entity_name_for_standaloneservice", "description": "Get the total count of entities in the consumption service."}
+  ]
+}

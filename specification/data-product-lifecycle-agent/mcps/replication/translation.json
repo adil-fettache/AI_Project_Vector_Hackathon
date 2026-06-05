@@ -1,0 +1,728 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:Replication:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/replication",
+    "title": "replication",
+    "version": "1.0.0",
+    "description": "MCP server for the replication service."
+  },
+  "tools": [
+    {
+      "name": "replicateDivision",
+      "title": "replicateDivision",
+      "description": "Replicate divisions that should be used as organization data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateDivision",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "newCustomerExtension",
+      "title": "newCustomerExtension",
+      "description": "Replicate customer extensions that should be used as customer data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "newCustomerExtension",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateSuppliers",
+      "title": "replicateSuppliers",
+      "description": "Replicate suppliers that should be used as supplier data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateSuppliers",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicatePlant",
+      "title": "replicatePlant",
+      "description": "Replicate plants that should be used as organization data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicatePlant",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateRegions_2",
+      "title": "replicateRegions_2",
+      "description": "Replicate product groups that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateRegions_2",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateDeliveries",
+      "title": "replicateDeliveries",
+      "description": "Replicate deliveries that should be used as delivery data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateDeliveries",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateUnitOfMeasureDimensions",
+      "title": "replicateUnitOfMeasureDimensions",
+      "description": "Replicate unit of measure dimensions that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateUnitOfMeasureDimensions",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateDistributionChannel",
+      "title": "replicateDistributionChannel",
+      "description": "Replicate distribution channels that should be used as organization data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateDistributionChannel",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateCurrencies",
+      "title": "replicateCurrencies",
+      "description": "Replicate currencies that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateCurrencies",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "newCustomer",
+      "title": "newCustomer",
+      "description": "Replicate customers that should be used as customer data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "newCustomer",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateUnitOfMeasureISOCodes",
+      "title": "replicateUnitOfMeasureISOCodes",
+      "description": "Replicate unit of measure ISO codes that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateUnitOfMeasureISOCodes",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateRegions_4",
+      "title": "replicateRegions_4",
+      "description": "Replicate delivery document item categories that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateRegions_4",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateRegions",
+      "title": "replicateRegions",
+      "description": "Replicate states/provinces that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateRegions",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateSalesOrganization",
+      "title": "replicateSalesOrganization",
+      "description": "Replicate sales organizations that should be used as organization data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateSalesOrganization",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateCompanyCode",
+      "title": "replicateCompanyCode",
+      "description": "Replicate company codes that should be used as organization data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateCompanyCode",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateRegions_3",
+      "title": "replicateRegions_3",
+      "description": "Replicate delivery document types that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateRegions_3",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateBillingDocumentItems",
+      "title": "replicateBillingDocumentItems",
+      "description": "Replicate billing document items that should be used as billing document item data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateBillingDocumentItems",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateCountries",
+      "title": "replicateCountries",
+      "description": "Replicate countries/regions that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateCountries",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateBatch",
+      "title": "replicateBatch",
+      "description": "Replicate batches that should be used as batch data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateBatch",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateMovementTypes",
+      "title": "replicateMovementTypes",
+      "description": "Replicate movement types that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateMovementTypes",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateUnitOfMeasures",
+      "title": "replicateUnitOfMeasures",
+      "description": "Replicate units of measure that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateUnitOfMeasures",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateSupplierInvoiceItem",
+      "title": "replicateSupplierInvoiceItem",
+      "description": "Replicate supplier invoice items that should be used as supplier invoice data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateSupplierInvoiceItem",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateProducts",
+      "title": "replicateProducts",
+      "description": "Replicate products that should be used as product data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateProducts",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "newProductExtension",
+      "title": "newProductExtension",
+      "description": "Replicate product extensions that should be used as product data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "newProductExtension",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateRegions_1",
+      "title": "replicateRegions_1",
+      "description": "Replicate product types that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateRegions_1",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "upsertMaterialDocument",
+      "title": "upsertMaterialDocument",
+      "description": "Replicate material documents that should be used as material document data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "upsertMaterialDocument",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "upsertInventory",
+      "title": "upsertInventory",
+      "description": "Replicate calculated inventory quantities that should be used as inventory data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "upsertInventory",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "upsertIncoterm",
+      "title": "upsertIncoterm",
+      "description": "Receives the incoterms data from your source system, then stores it in SAP Responsible Design and Production. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "upsertIncoterm",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateProductHierarchies",
+      "title": "replicateProductHierarchies",
+      "description": "Replicate product hierarchies that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateProductHierarchies",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateProductBrands",
+      "title": "replicateProductBrands",
+      "description": "Replicate product brands that should be used as configuration data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateProductBrands",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "replicateSalesAreas",
+      "title": "replicateSalesAreas",
+      "description": "Replicate sales areas that should be used as organization data. To find out, which SAP S/4HANA attributes match these API members, see [user guide](https://help.sap.com/viewer/01d581e7150c42f59b5234a76f5e8d2d/latest/en-US/64db67d600b549d2b3bd81c3689c8d95.html)",
+      "openApiType": {
+        "operationId": "replicateSalesAreas",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "Content-Encoding",
+            "description": "Indicates to the server that the request body has been compressed using the gzip algorithm. It is recommended to compress the payload whenever possible. To be able to use this option, the payload must be compressed using gzip before sending.",
+            "in": "header",
+            "newParameterName": "content_encoding"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    }
+  ]
+}

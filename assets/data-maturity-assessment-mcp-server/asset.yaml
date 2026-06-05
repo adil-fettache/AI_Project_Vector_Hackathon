@@ -1,0 +1,14 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: data-maturity-assessment-mcp-server
+  version: 1.0.0
+  description: >
+    MCP server for SAP Datasphere Data Maturity Assessment API.
+    Provides tools for analyzing data quality, readiness, and effectiveness.
+
+type: mcp-server
+
+spec:
+  translationFile: translation.json

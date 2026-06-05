@@ -1,0 +1,189 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:Connections:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/connections",
+    "title": "connections",
+    "version": "1.0.0",
+    "description": "MCP server for the connections service."
+  },
+  "tools": [
+    {
+      "name": "RetrieveConnectionOfSpace",
+      "title": "RetrieveConnectionOfSpace",
+      "description": "Returns the definition of a connection in a space (without its credentials).",
+      "openApiType": {
+        "operationId": "RetrieveConnectionOfSpace",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "The Space ID",
+            "in": "path",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "name",
+            "description": "The technical name of the connection",
+            "in": "path",
+            "newParameterName": "name"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "UpdateConnectionInSpace",
+      "title": "UpdateConnectionInSpace",
+      "description": "Updates a connection in a space.",
+      "openApiType": {
+        "operationId": "UpdateConnectionInSpace",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "spaceId",
+            "description": "The Space ID",
+            "in": "path",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "name",
+            "description": "The technical name of the connection",
+            "in": "path",
+            "newParameterName": "name"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "DeleteConnectionInSpace",
+      "title": "DeleteConnectionInSpace",
+      "description": "Deletes a connection from a space.",
+      "openApiType": {
+        "operationId": "DeleteConnectionInSpace",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "The Space ID",
+            "in": "path",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "name",
+            "description": "The technical name of the connection",
+            "in": "path",
+            "newParameterName": "name"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "ValidateConnectionInSpace",
+      "title": "ValidateConnectionInSpace",
+      "description": "Validates a connection in a space.",
+      "openApiType": {
+        "operationId": "ValidateConnectionInSpace",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "The Space ID",
+            "in": "path",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "name",
+            "description": "The technical name of the connection",
+            "in": "path",
+            "newParameterName": "name"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "ListConnectionsInSpace",
+      "title": "ListConnectionsInSpace",
+      "description": "Returns a list of connections available in a space.",
+      "openApiType": {
+        "operationId": "ListConnectionsInSpace",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "The Space ID",
+            "in": "path",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "name",
+            "description": "Requests that the service returns only the connections' technical names.",
+            "in": "query",
+            "newParameterName": "name"
+          },
+          {
+            "name": "details",
+            "description": "Requests that the service returns the connections with all their details except for credentials.",
+            "in": "query",
+            "newParameterName": "details"
+          },
+          {
+            "name": "features",
+            "description": "Requests that the service returns the connections with their technical names and their information about enabled and disabled features.",
+            "in": "query",
+            "newParameterName": "features"
+          },
+          {
+            "name": "$top",
+            "description": "Specifies a value N that limits the number of items returned.",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "$skip",
+            "description": "Specifies a value N that excludes the first N items.",
+            "in": "query",
+            "newParameterName": "skip"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "CreateConnectionInSpace",
+      "title": "CreateConnectionInSpace",
+      "description": "Creates a connection in a space.",
+      "openApiType": {
+        "operationId": "CreateConnectionInSpace",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "spaceId",
+            "description": "The Space ID to create an SAP SuccessFactors connection",
+            "in": "path",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "typeId",
+            "description": "The ID of the connection type",
+            "in": "query",
+            "newParameterName": "typeid"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    }
+  ]
+}

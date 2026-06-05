@@ -1,0 +1,145 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:Entities:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/data_builder",
+    "title": "data_builder",
+    "version": "1.0.0",
+    "description": "MCP server for the Datasphere Data Builder API. Provides CRUD operations for all modeling artifacts: graphical views, SQL/transformation views, analytical models, data flows, dimension views, fact views, and ER models."
+  },
+  "tools": [
+    {
+      "name": "list_spaces",
+      "title": "list_spaces",
+      "description": "List all Datasphere spaces the current user has access to. Returns space IDs, names, and descriptions. Always call this first to resolve the target space ID before any entity operation."
+    },
+    {
+      "name": "get_space",
+      "title": "get_space",
+      "description": "Get detailed information about a single Datasphere space by its ID, including space type, storage quota, assigned users, and allowed connections."
+    },
+    {
+      "name": "list_entities",
+      "title": "list_entities",
+      "description": "List entities (views, tables, analytical models, data flows, ER models, etc.) inside a Datasphere space. Accepts filters: spaceId (required), type (optional: 'view','analyticModel','dataFlow','erModel','taskChain'), name prefix, $top/$skip for pagination. Returns technical name, type, status, and deployment state."
+    },
+    {
+      "name": "get_entity",
+      "title": "get_entity",
+      "description": "Retrieve the full JSON definition of a single entity (view, analytical model, data flow, etc.) from a Datasphere space. Required params: spaceId, technicalName. Returns the full entity payload including columns, sources, joins, measures, dimensions, and SQL script where applicable."
+    },
+    {
+      "name": "get_entity_status",
+      "title": "get_entity_status",
+      "description": "Get the current deployment status of an entity in a Datasphere space. Returns status: DEPLOYED, DESIGN_TIME_ONLY, ERROR, DEPLOYING. Required params: spaceId, technicalName."
+    },
+    {
+      "name": "validate_entity",
+      "title": "validate_entity",
+      "description": "Validate an entity definition (view, data flow, analytical model, etc.) in a Datasphere space without persisting or deploying it. Returns validation errors, warnings, and a pass/fail result. Required params: spaceId, entityPayload (JSON). Use before create/update to catch schema errors early."
+    },
+    {
+      "name": "create_graphical_view",
+      "title": "create_graphical_view",
+      "description": "Create a new Graphical View in a Datasphere space using a visual node-based definition. The payload must include: spaceId, technicalName, label (business name), semanticUsage ('RELATIONAL_DATASET', 'FACT', 'DIMENSION', 'HIERARCHY'), and a 'definition' object describing the source nodes, join conditions, projection (selected columns), filter conditions, aggregation nodes (GROUP BY + measures), and any calculated columns (formula expressions). Joins support: INNER, LEFT_OUTER, RIGHT_OUTER, FULL_OUTER, CROSS. Column expressions support: arithmetic, string functions, date functions, CASE WHEN, IF-THEN-ELSE, nested lookups."
+    },
+    {
+      "name": "update_graphical_view",
+      "title": "update_graphical_view",
+      "description": "Update an existing Graphical View definition in a Datasphere space. Required params: spaceId, technicalName, full updated definition payload. The entity must already exist; use get_entity to retrieve the current definition before modifying. Supports adding/removing source nodes, changing join types, updating projection columns, adding calculated columns, and changing aggregation logic."
+    },
+    {
+      "name": "create_sql_view",
+      "title": "create_sql_view",
+      "description": "Create a new SQL View (also called Transformation View) in a Datasphere space using a SQL SELECT statement. Required params: spaceId, technicalName, label, sqlScript (a valid HANA SQL SELECT statement). The SQL may include: CTEs (WITH clause), projections (SELECT col1, col2), calculated columns (col * 2 AS doubled), aggregations (GROUP BY + SUM/COUNT/AVG/MIN/MAX/STDEV), HAVING clause, window functions (ROW_NUMBER/RANK/DENSE_RANK/SUM OVER PARTITION), CASE WHEN expressions, scalar subqueries, UNION/INTERSECT/EXCEPT, and input parameters ($$PARAM_NAME$$). Optional: semanticUsage, input parameters definition, output column metadata. Best for: multi-step CTEs, reuse of complex SQL logic, advanced window analytics, Python UDF references."
+    },
+    {
+      "name": "update_sql_view",
+      "title": "update_sql_view",
+      "description": "Update the SQL script and metadata of an existing SQL View in a Datasphere space. Required params: spaceId, technicalName, updated sqlScript and/or metadata. Triggers re-validation of the SQL. The view must be re-deployed after update using deploy_entity."
+    },
+    {
+      "name": "create_analytical_model",
+      "title": "create_analytical_model",
+      "description": "Create a new Analytical Model in a Datasphere space. This is a star-schema style artifact primarily used for SAP Analytics Cloud (SAC) story consumption. Required params: spaceId, technicalName, label, factSource (technicalName of the fact view or relational dataset), dimensionAssociations (list of dimension views with join keys), measures (list with aggregation: SUM/COUNT/MIN/MAX/AVG), calculatedMeasures (formula-based measures, e.g. 'Revenue / Quantity'), restrictedMeasures (measures with hard-coded filter conditions), variables (input parameters for report-time filtering), and hierarchies (optional, for drill-down). The analytical model does NOT store data; it is a semantic layer on top of existing views."
+    },
+    {
+      "name": "update_analytical_model",
+      "title": "update_analytical_model",
+      "description": "Update an existing Analytical Model in a Datasphere space. Supports adding/removing dimensions, updating measures, adding calculated measures, updating variable definitions, and changing fact source. Required params: spaceId, technicalName, updated model payload."
+    },
+    {
+      "name": "create_data_flow",
+      "title": "create_data_flow",
+      "description": "Create a new Data Flow in a Datasphere space. Data Flows are ETL/ELT pipelines that read from source entities, apply transformations, and write to a target local table. Required params: spaceId, technicalName, label, sourceEntity (technicalName + spaceId of source), targetEntity (technicalName of local table to write to), loadType ('INITIAL' for full load, 'DELTA' for incremental). Optional transformation operators: Projection (select/rename columns), Filter (WHERE condition), Aggregation (GROUP BY + aggregate columns), Join (combine two source branches), Union (combine multiple sources of same structure), Script (SQLScript or Python). Delta settings: deltaColumn (timestamp/sequence column), deltaMode ('UPSERT', 'APPEND', 'DELETE_INSERT')."
+    },
+    {
+      "name": "update_data_flow",
+      "title": "update_data_flow",
+      "description": "Update an existing Data Flow definition in a Datasphere space. Supports changing source, target, transformation operators, delta settings, and adding/removing transformation nodes. Required params: spaceId, technicalName, updated flow payload."
+    },
+    {
+      "name": "create_dimension_view",
+      "title": "create_dimension_view",
+      "description": "Create a new Dimension View in a Datasphere space. A Dimension View is a Graphical or SQL View with semanticUsage='DIMENSION'. It defines master data attributes for slicing and filtering in Analytical Models and SAC stories. Required params: spaceId, technicalName, label, key columns (one or more columns forming the unique key), attribute columns (descriptive columns), optional text column (human-readable label for each key value), optional hierarchies (parent-child or level-based for drill-down). Text association: link to a text entity that provides locale-aware descriptions."
+    },
+    {
+      "name": "create_fact_view",
+      "title": "create_fact_view",
+      "description": "Create a new Fact View in a Datasphere space. A Fact View is a Graphical or SQL View with semanticUsage='FACT'. It contains the quantitative measures (e.g. sales amount, quantity, cost) and foreign keys to Dimension Views. Required params: spaceId, technicalName, label, key columns, measure columns (with declared aggregation: SUM/COUNT/MIN/MAX/AVG), dimension associations (foreign key columns that join to Dimension Views). The combination of Fact View + Dimension Views forms the star schema consumed by Analytical Models."
+    },
+    {
+      "name": "create_er_model",
+      "title": "create_er_model",
+      "description": "Create a new ER Model in a Datasphere space. ER Models are documentation-only artifacts that visually display the relationships (associations) between entities (tables, views) without storing or transforming data. Required params: spaceId, technicalName, label, entities (list of technicalNames to include), associations (source entity, target entity, join columns, cardinality: ONE_TO_ONE/ONE_TO_MANY/MANY_TO_ONE/MANY_TO_MANY). Useful for: data governance documentation, schema exploration, onboarding, and lineage understanding."
+    },
+    {
+      "name": "update_er_model",
+      "title": "update_er_model",
+      "description": "Update an existing ER Model in a Datasphere space. Supports adding/removing entities and associations. Required params: spaceId, technicalName, updated associations list."
+    },
+    {
+      "name": "create_task_chain",
+      "title": "create_task_chain",
+      "description": "Create a new Task Chain in a Datasphere space. Task Chains orchestrate and schedule the sequential or parallel execution of Data Flows and other tasks. Required params: spaceId, technicalName, label, tasks (ordered list of entity references with type 'dataFlow'), schedule (optional cron expression). Supports conditional branching: 'onSuccess', 'onFailure' routing."
+    },
+    {
+      "name": "delete_entity",
+      "title": "delete_entity",
+      "description": "Delete an entity (view, analytical model, data flow, ER model, task chain, etc.) from a Datasphere space. Required params: spaceId, technicalName. WARNING: This action is irreversible. The entity must be undeployed first (status DESIGN_TIME_ONLY) before it can be deleted. Always request user approval before calling this tool."
+    },
+    {
+      "name": "deploy_entity",
+      "title": "deploy_entity",
+      "description": "Deploy (activate/publish) an entity to the Datasphere HANA Cloud database, making it queryable and accessible to consumers. Required params: spaceId, technicalName. Triggers compilation, validation, and physical creation of the database object. Returns a jobId; call get_deploy_job_status to poll for completion. Prerequisite: the entity definition must pass validation. Deployment is required after create or update before consumers can access the new/changed view."
+    },
+    {
+      "name": "undeploy_entity",
+      "title": "undeploy_entity",
+      "description": "Undeploy an entity from Datasphere HANA Cloud, removing the physical database object but keeping the design-time definition. Required params: spaceId, technicalName. After undeployment the entity returns to DESIGN_TIME_ONLY status. Required before delete_entity."
+    },
+    {
+      "name": "get_deploy_job_status",
+      "title": "get_deploy_job_status",
+      "description": "Poll the status of an asynchronous deploy or undeploy job in Datasphere. Required params: spaceId, jobId (returned by deploy_entity/undeploy_entity). Returns: status (RUNNING, COMPLETED, FAILED), progress percentage, and error details if failed."
+    },
+    {
+      "name": "list_entity_impact",
+      "title": "list_entity_impact",
+      "description": "Get the impact analysis for an entity: which other views, analytical models, or data flows depend on it. Required params: spaceId, technicalName. Returns a list of dependent entities with their type and deployment status. Use before delete_entity or schema changes to understand downstream impact."
+    },
+    {
+      "name": "list_entity_lineage",
+      "title": "list_entity_lineage",
+      "description": "Get the data lineage for an entity: which source tables and views it depends on, transitively. Required params: spaceId, technicalName. Returns an upstream lineage tree with entity types, spaces, and connection references for cross-space or remote sources."
+    },
+    {
+      "name": "get_column_suggestions",
+      "title": "get_column_suggestions",
+      "description": "Get column name and type suggestions for a new view based on the specified source entities. Required params: spaceId, sourceEntities (list of technicalNames). Returns available columns with data types, semantic types (dimension/measure/text/key), and suggested aggregations for numeric columns. Use in Step 3 of the modeling workflow to populate proposed schemas without guessing column names."
+    }
+  ]
+}

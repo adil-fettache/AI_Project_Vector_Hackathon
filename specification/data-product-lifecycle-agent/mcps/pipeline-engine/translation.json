@@ -1,0 +1,253 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:PipelineEngine:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/pipeline_engine_cloud_edition",
+    "title": "pipeline_engine_cloud_edition",
+    "version": "1.0.0",
+    "description": "MCP server for the pipeline_engine_cloud_edition service."
+  },
+  "tools": [
+    {
+      "name": "getVersion",
+      "title": "getVersion",
+      "description": "Get the version of the vFlow runtime.",
+      "openApiType": {
+        "operationId": "getVersion",
+        "parameters": [],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "listGraphs",
+      "title": "listGraphs",
+      "description": "This operation can be used to list all graphs from the repository.",
+      "openApiType": {
+        "operationId": "listGraphs",
+        "parameters": [
+          {
+            "name": "regex",
+            "description": "Regular expression to be used for finding graphs.",
+            "in": "query",
+            "newParameterName": "regex"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getGraph",
+      "title": "getGraph",
+      "description": "Find a graph in the repository given its name.",
+      "openApiType": {
+        "operationId": "getGraph",
+        "parameters": [
+          {
+            "name": "name",
+            "description": "The name of the graph to return.",
+            "in": "path",
+            "newParameterName": "name"
+          },
+          {
+            "name": "subentity",
+            "description": "The name of a subentity.",
+            "in": "query",
+            "newParameterName": "subentity"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "listExecutionGraphs",
+      "title": "listExecutionGraphs",
+      "description": "Lists all graphs of the runtime, independent of their state and execution contexts.",
+      "openApiType": {
+        "operationId": "listExecutionGraphs",
+        "parameters": [],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "startExecutionGraph",
+      "title": "startExecutionGraph",
+      "description": "Start a specific graph given by a graph execution request.",
+      "openApiType": {
+        "operationId": "startExecutionGraph",
+        "parameters": [
+          {
+            "name": "body",
+            "description": "A graph execution request."
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "deleteAllExecutionGraphs",
+      "title": "deleteAllExecutionGraphs",
+      "description": "Delete or stop all or selected graphs. The `handles` parameter can be used to restrict the operation to a subset of graphs to be stopped or deleted.",
+      "openApiType": {
+        "operationId": "deleteAllExecutionGraphs",
+        "parameters": [
+          {
+            "name": "stop",
+            "description": "If set, only stop the graphs. If not set, delete the graphs.",
+            "in": "query",
+            "newParameterName": "stop"
+          },
+          {
+            "name": "handles",
+            "description": "A comma-separated list of graph handles to restrict the operation.",
+            "in": "query",
+            "newParameterName": "handles"
+          },
+          {
+            "name": "skipdead",
+            "description": "If set, only delete the completed graphs, keeping the dead ones.",
+            "in": "query",
+            "newParameterName": "skipdead"
+          },
+          {
+            "name": "includeSnapshot",
+            "description": "If set, graphs with snapshot enabled are also deleted.",
+            "in": "query",
+            "newParameterName": "includesnapshot"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getExecutionGraph",
+      "title": "getExecutionGraph",
+      "description": "Get the execution details of a specific graph. This includes information such as the execution status, start time, container details and more.",
+      "openApiType": {
+        "operationId": "getExecutionGraph",
+        "parameters": [
+          {
+            "name": "handle",
+            "description": "The handle of the graph.",
+            "in": "path",
+            "newParameterName": "handle"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "deleteExecutionGraph",
+      "title": "deleteExecutionGraph",
+      "description": "Delete or stop a specific graph given by the `handle` parameter.",
+      "openApiType": {
+        "operationId": "deleteExecutionGraph",
+        "parameters": [
+          {
+            "name": "handle",
+            "description": "The handle of the graph.",
+            "in": "path",
+            "newParameterName": "handle"
+          },
+          {
+            "name": "stop",
+            "description": "If set, only stop the graph. If not set, delete the graph.",
+            "in": "query",
+            "newParameterName": "stop"
+          },
+          {
+            "name": "force",
+            "description": "Valid only in conjunction with the `stop` parameter. If set, force graph stopping, i.e., delete the graph pods.",
+            "in": "query",
+            "newParameterName": "force"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "POST_v1_runtime_restartgroups_restartGroupID",
+      "title": "POST_v1_runtime_restartgroups_restartGroupID",
+      "description": "A restart group can be paused or resumed using this operation.",
+      "openApiType": {
+        "path": "/v1/runtime/restartgroups/{restartGroupID}",
+        "method": "post",
+        "parameters": [
+          {
+            "name": "restartGroupID",
+            "description": "The id of the restart group.",
+            "in": "path",
+            "newParameterName": "restartgroupid"
+          },
+          {
+            "name": "action",
+            "description": "Action of the restart group",
+            "in": "query",
+            "newParameterName": "action"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "DELETE_v1_runtime_restartgroups_restartGroupID",
+      "title": "DELETE_v1_runtime_restartgroups_restartGroupID",
+      "description": "Use this operation to remove all graphs in restart group",
+      "openApiType": {
+        "path": "/v1/runtime/restartgroups/{restartGroupID}",
+        "method": "delete",
+        "parameters": [
+          {
+            "name": "restartGroupID",
+            "description": "The id of the restart group.",
+            "in": "path",
+            "newParameterName": "restartgroupid"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "getGraphDescription",
+      "title": "getGraphDescription",
+      "description": "Get the graph description of a handle. This operation can be used to obtain design-time information about running graphs.",
+      "openApiType": {
+        "operationId": "getGraphDescription",
+        "parameters": [
+          {
+            "name": "handle",
+            "description": "The handle of the graph.",
+            "in": "path",
+            "newParameterName": "handle"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "queryExecutionGraphs",
+      "title": "queryExecutionGraphs",
+      "description": "Query the list of graph execution objects using filter, sort, limit, and details clauses. Although issued via an `HTTP POST` request, this operation does not change the existing graph execution objects.",
+      "openApiType": {
+        "operationId": "queryExecutionGraphs",
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The query specification object."
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    }
+  ]
+}

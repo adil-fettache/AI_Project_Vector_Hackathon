@@ -1,0 +1,48 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: data-product-lifecycle-agent
+  version: 1.0.0
+  description: >
+    AI Agent that autonomously orchestrates the end-to-end Data Product lifecycle
+    in SAP Business Data Cloud — discovery, SAP and non-SAP integration, activation,
+    quality validation, governance, analytical modeling, and monitoring via
+    SAP Datasphere APIs over MCP.
+
+type: agent
+
+container:
+  buildPath: .
+  port: 5000
+
+requires:
+  - name: catalog-mcp-server
+  - name: connections-mcp-server
+  - name: pipeline-engine-mcp-server
+  - name: data-profiling-mcp-server
+  - name: enterprise-information-management-mcp-server
+  - name: data-sharing-cockpit-mcp-server
+  - name: consumption-mcp-server
+  - name: data-maturity-assessment-mcp-server
+  - name: replication-mcp-server
+  - name: data-builder-mcp-server
+
+probes:
+  startup:
+    path: /.well-known/agent-card.json
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 18
+  liveness:
+    path: /.well-known/agent-card.json
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readiness:
+    path: /.well-known/agent-card.json
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3

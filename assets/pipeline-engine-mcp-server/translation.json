@@ -1,0 +1,27 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:PipelineEngine:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/pipeline_engine_cloud_edition",
+    "title": "pipeline_engine_cloud_edition",
+    "version": "1.0.0",
+    "description": "MCP server for the pipeline_engine_cloud_edition service."
+  },
+  "tools": [
+    {"name": "getVersion", "description": "Get the version of the vFlow runtime."},
+    {"name": "listGraphs", "description": "List all graphs from the repository."},
+    {"name": "getGraph", "description": "Find a graph in the repository given its name."},
+    {"name": "listExecutionGraphs", "description": "Lists all graphs of the runtime."},
+    {"name": "startExecutionGraph", "description": "Start a specific graph given by a graph execution request."},
+    {"name": "deleteAllExecutionGraphs", "description": "Delete or stop all or selected graphs."},
+    {"name": "getExecutionGraph", "description": "Get the execution details of a specific graph."},
+    {"name": "deleteExecutionGraph", "description": "Delete or stop a specific graph."},
+    {"name": "POST_v1_runtime_restartgroups_restartGroupID", "description": "Pause or resume a restart group."},
+    {"name": "DELETE_v1_runtime_restartgroups_restartGroupID", "description": "Remove all graphs in a restart group."},
+    {"name": "getGraphDescription", "description": "Get the graph description of a handle."},
+    {"name": "queryExecutionGraphs", "description": "Query the list of graph execution objects."}
+  ]
+}

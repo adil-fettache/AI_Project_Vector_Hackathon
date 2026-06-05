@@ -1,0 +1,16 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: data-builder-mcp-server
+  version: 1.0.0
+  description: >
+    MCP server for the SAP Datasphere Data Builder API (Entities API).
+    Exposes tools for creating, updating, deploying, and deleting all
+    Datasphere modeling artifacts: graphical views, SQL views, analytical
+    models, data flows, dimension views, fact views, and ER models.
+
+type: mcp-server
+
+spec:
+  translationFile: translation.json

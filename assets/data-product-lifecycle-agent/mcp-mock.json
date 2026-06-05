@@ -1,0 +1,4447 @@
+{
+  "servers": {
+    "catalogservice": {
+      "mcp_server_name": "sap.mcp/catalogservice",
+      "description": "MCP server for SAP Datasphere Catalog Service (OData).",
+      "tools": {
+        "get_metadata_catalogservice": {
+          "description": "Get OData service metadata.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "edmx:Edmx": {
+              "Version": "1.0"
+            }
+          }
+        },
+        "batch_for_catalogservice": {
+          "description": "Execute multiple OData operations in a single batch.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": {
+            "responses": []
+          }
+        },
+        "list_spaces_for_catalogservice": {
+          "description": "Retrieve a list of spaces.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              },
+              "top": {
+                "type": "integer"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "name": "SALESDATA",
+                "label": "Sales Data Space",
+                "status": "ACTIVE"
+              },
+              {
+                "name": "FINANCEDATA",
+                "label": "Finance Data Space",
+                "status": "ACTIVE"
+              }
+            ]
+          }
+        },
+        "get_spaces_for_catalogservice": {
+          "description": "Retrieve a single space by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "mock_response": {
+            "name": "SALESDATA",
+            "label": "Sales Data Space",
+            "status": "ACTIVE"
+          }
+        },
+        "count_spaces_for_catalogservice": {
+          "description": "Get the total count of spaces.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "mock_response": 5
+        },
+        "list_assets_for_catalogservice": {
+          "description": "Retrieve a list of assets.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              },
+              "top": {
+                "type": "integer"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "spaceName": "SALESDATA",
+                "name": "BILLING_ITEMS",
+                "type": "analyticalDataset",
+                "status": "ACTIVE"
+              },
+              {
+                "spaceName": "SALESDATA",
+                "name": "SALES_ORDERS",
+                "type": "analyticalDataset",
+                "status": "ACTIVE"
+              }
+            ]
+          }
+        },
+        "get_assets_for_catalogservice": {
+          "description": "Retrieve a single asset by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spacename": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spacename",
+              "name"
+            ]
+          },
+          "mock_response": {
+            "spaceName": "SALESDATA",
+            "name": "BILLING_ITEMS",
+            "type": "analyticalDataset",
+            "status": "ACTIVE"
+          }
+        },
+        "count_assets_for_catalogservice": {
+          "description": "Get the total count of assets.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "mock_response": 12
+        },
+        "list_assets_in_spaces_for_catalogservice": {
+          "description": "Navigate from spaces to related assets.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "mock_response": {
+            "results": [
+              {
+                "spaceName": "SALESDATA",
+                "name": "BILLING_ITEMS",
+                "type": "analyticalDataset"
+              }
+            ]
+          }
+        },
+        "count_assets_in_spaces_for_catalogservice": {
+          "description": "Count assets in a space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "mock_response": 12
+        },
+        "get_space_in_assets_for_catalogservice": {
+          "description": "Navigate from assets to the related space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spacename": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spacename",
+              "name"
+            ]
+          },
+          "mock_response": {
+            "name": "SALESDATA",
+            "label": "Sales Data Space",
+            "status": "ACTIVE"
+          }
+        }
+      }
+    },
+    "connections": {
+      "mcp_server_name": "sap.mcp/connections",
+      "description": "MCP server for SAP Datasphere Connections API.",
+      "tools": {
+        "RetrieveConnectionOfSpace": {
+          "description": "Returns the definition of a connection in a space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceid",
+              "name"
+            ]
+          },
+          "mock_response": {
+            "name": "S4HANA_CONN",
+            "type": "SAP_HANA_ON_PREMISE",
+            "status": "ACTIVE"
+          }
+        },
+        "UpdateConnectionInSpace": {
+          "description": "Updates a connection in a space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "spaceid",
+              "name"
+            ]
+          },
+          "mock_response": {
+            "name": "S4HANA_CONN",
+            "status": "ACTIVE"
+          }
+        },
+        "DeleteConnectionInSpace": {
+          "description": "Deletes a connection from a space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceid",
+              "name"
+            ]
+          },
+          "mock_response": {}
+        },
+        "ValidateConnectionInSpace": {
+          "description": "Validates a connection in a space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceid",
+              "name"
+            ]
+          },
+          "mock_response": {
+            "status": "OK",
+            "message": "Connection is valid."
+          }
+        },
+        "ListConnectionsInSpace": {
+          "description": "Returns a list of connections available in a space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceid": {
+                "type": "string"
+              },
+              "top": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "spaceid"
+            ]
+          },
+          "mock_response": {
+            "results": [
+              {
+                "name": "S4HANA_CONN",
+                "type": "SAP_HANA_ON_PREMISE",
+                "status": "ACTIVE"
+              },
+              {
+                "name": "SF_CONN",
+                "type": "SAP_SUCCESSFACTORS",
+                "status": "ACTIVE"
+              }
+            ]
+          }
+        },
+        "CreateConnectionInSpace": {
+          "description": "Creates a connection in a space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceid": {
+                "type": "string"
+              },
+              "typeid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "spaceid"
+            ]
+          },
+          "mock_response": {
+            "name": "NEW_CONN",
+            "type": "SAP_HANA_ON_PREMISE",
+            "status": "CREATED"
+          }
+        }
+      }
+    },
+    "pipeline-engine-cloud-edition": {
+      "mcp_server_name": "sap.mcp/pipeline_engine_cloud_edition",
+      "description": "MCP server for SAP Datasphere Pipeline Engine.",
+      "tools": {
+        "getVersion": {
+          "description": "Get vFlow runtime version.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": {
+            "version": "2.7.0",
+            "edition": "cloud"
+          }
+        },
+        "listGraphs": {
+          "description": "List all graphs from the repository.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "regex": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "mock_response": [
+            {
+              "name": "data-product-pipeline",
+              "status": "defined"
+            },
+            {
+              "name": "quality-check-pipeline",
+              "status": "defined"
+            }
+          ]
+        },
+        "getGraph": {
+          "description": "Find a graph by name.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "mock_response": {
+            "name": "data-product-pipeline",
+            "status": "defined",
+            "nodes": 4
+          }
+        },
+        "listExecutionGraphs": {
+          "description": "Lists all graphs of the runtime.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": [
+            {
+              "handle": "exec-001",
+              "status": "completed"
+            },
+            {
+              "handle": "exec-002",
+              "status": "running"
+            }
+          ]
+        },
+        "startExecutionGraph": {
+          "description": "Start a specific graph.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "handle": "exec-003",
+            "status": "pending"
+          }
+        },
+        "deleteAllExecutionGraphs": {
+          "description": "Delete or stop all graphs.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "stop": {
+                "type": "boolean"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "deleted": 2
+          }
+        },
+        "getExecutionGraph": {
+          "description": "Get execution details.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "handle": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "handle"
+            ]
+          },
+          "mock_response": {
+            "handle": "exec-001",
+            "status": "completed",
+            "rowsProcessed": 15000
+          }
+        },
+        "deleteExecutionGraph": {
+          "description": "Delete or stop a specific graph.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "handle": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "handle"
+            ]
+          },
+          "mock_response": {}
+        },
+        "POST_v1_runtime_restartgroups_restartGroupID": {
+          "description": "Pause or resume a restart group.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "restartgroupid": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "restartgroupid"
+            ]
+          },
+          "mock_response": {
+            "restartGroupID": "rg-001",
+            "action": "paused"
+          }
+        },
+        "DELETE_v1_runtime_restartgroups_restartGroupID": {
+          "description": "Remove all graphs in a restart group.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "restartgroupid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "restartgroupid"
+            ]
+          },
+          "mock_response": {}
+        },
+        "getGraphDescription": {
+          "description": "Get graph description of a handle.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "handle": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "handle"
+            ]
+          },
+          "mock_response": {
+            "handle": "exec-001",
+            "name": "data-product-pipeline"
+          }
+        },
+        "queryExecutionGraphs": {
+          "description": "Query graph execution objects.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "handle": "exec-001",
+                "status": "completed"
+              }
+            ],
+            "totalCount": 1
+          }
+        }
+      }
+    },
+    "data-profiling": {
+      "mcp_server_name": "sap.mcp/data_profiling",
+      "description": "MCP server for SAP Datasphere Data Profiling API.",
+      "tools": {
+        "prf_report_profiling_post": {
+          "description": "Generate a data profiling report.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "reportId": "RPT-001",
+            "status": "completed",
+            "statistics": {
+              "rowCount": 10000,
+              "nullRate": 0.02,
+              "completeness": 0.98
+            }
+          }
+        }
+      }
+    },
+    "enterprise-information-management": {
+      "mcp_server_name": "sap.mcp/enterprise_information_management",
+      "description": "MCP server for SAP Datasphere Enterprise Information Management API.",
+      "tools": {
+        "GET_tasks": {
+          "description": "Returns available tasks.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": [
+            {
+              "name": "SAPHANADB::billing_flowgraph",
+              "type": "FLOWGRAPH"
+            },
+            {
+              "name": "SAPHANADB::customer_flowgraph",
+              "type": "FLOWGRAPH"
+            }
+          ]
+        },
+        "GET_tasks_taskName": {
+          "description": "Returns metadata of a specific task.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname"
+            ]
+          },
+          "mock_response": {
+            "name": "SAPHANADB::billing_flowgraph",
+            "type": "FLOWGRAPH",
+            "status": "ACTIVE"
+          }
+        },
+        "GET_tasks_taskName_tableTypes": {
+          "description": "Returns table type info.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname"
+            ]
+          },
+          "mock_response": [
+            {
+              "name": "INPUT_TYPE"
+            }
+          ]
+        },
+        "GET_tasks_taskName_executions": {
+          "description": "Retrieves task execution data.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname"
+            ]
+          },
+          "mock_response": [
+            {
+              "taskExecutionId": "TE-001",
+              "status": "COMPLETED",
+              "rowsProcessed": 15000
+            }
+          ]
+        },
+        "addtasks": {
+          "description": "Starts execution of a task.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname"
+            ]
+          },
+          "mock_response": {
+            "taskExecutionId": "TE-002",
+            "status": "RUNNING"
+          }
+        },
+        "PUT_tasks_taskName_executions": {
+          "description": "Cancels realtime flowgraph execution.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname"
+            ]
+          },
+          "mock_response": {
+            "status": "CANCELLED"
+          }
+        },
+        "DELETE_tasks_taskName_executions": {
+          "description": "Deletes all task execution data.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname"
+            ]
+          },
+          "mock_response": {}
+        },
+        "GET_tasks_taskName_executions_execId": {
+          "description": "Returns execution details.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              },
+              "execid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname",
+              "execid"
+            ]
+          },
+          "mock_response": {
+            "taskExecutionId": "TE-001",
+            "status": "COMPLETED",
+            "rowsProcessed": 15000
+          }
+        },
+        "PUT_tasks_taskName_executions_execId": {
+          "description": "Stops execution.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              },
+              "execid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname",
+              "execid"
+            ]
+          },
+          "mock_response": {
+            "status": "STOPPED"
+          }
+        },
+        "DELETE_tasks_taskName_executions_execId": {
+          "description": "Deletes single execution.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              },
+              "execid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname",
+              "execid"
+            ]
+          },
+          "mock_response": {}
+        },
+        "GET_tasks_taskName_executions_execId_partitions": {
+          "description": "Returns partition info.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              },
+              "execid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname",
+              "execid"
+            ]
+          },
+          "mock_response": [
+            {
+              "partition": 0,
+              "rows": 7500,
+              "status": "COMPLETED"
+            }
+          ]
+        },
+        "GET_tasks_taskName_executions_execId_operations": {
+          "description": "Returns operation details.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              },
+              "execid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname",
+              "execid"
+            ]
+          },
+          "mock_response": [
+            {
+              "operation": "READ",
+              "rows": 15000
+            }
+          ]
+        },
+        "GET_tasks_taskName_executions_execId_messages": {
+          "description": "Returns runtime messages.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "taskname": {
+                "type": "string"
+              },
+              "execid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "taskname",
+              "execid"
+            ]
+          },
+          "mock_response": []
+        },
+        "GET_virtualTables": {
+          "description": "Returns all virtual tables.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": [
+            {
+              "name": "SALES_VT",
+              "schema": "SAPHANADB"
+            }
+          ]
+        },
+        "GET_virtualTables_table": {
+          "description": "Returns virtual table details.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "table": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "table"
+            ]
+          },
+          "mock_response": {
+            "name": "SALES_VT",
+            "remoteSource": "S4HANA"
+          }
+        },
+        "POST_virtualTables_table": {
+          "description": "Creates a new virtual table.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "table": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "table"
+            ]
+          },
+          "mock_response": {
+            "name": "NEW_VT",
+            "status": "created"
+          }
+        },
+        "DELETE_virtualTables_table": {
+          "description": "Deletes a virtual table.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "table": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "table"
+            ]
+          },
+          "mock_response": {}
+        },
+        "GET_virtualTables_table_properties": {
+          "description": "Returns virtual table properties.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "table": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "table"
+            ]
+          },
+          "mock_response": {
+            "remoteSource": "S4HANA",
+            "remoteTable": "BSID"
+          }
+        },
+        "PUT_virtualTables_table_properties": {
+          "description": "Modifies virtual table properties.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "table": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "table"
+            ]
+          },
+          "mock_response": {
+            "status": "updated"
+          }
+        }
+      }
+    },
+    "data-sharing-cockpit": {
+      "mcp_server_name": "sap.mcp/data_sharing_cockpit",
+      "description": "MCP server for SAP Datasphere Data Sharing Cockpit API.",
+      "tools": {
+        "GET_v1_datasphere_marketplace_dsc_providers": {
+          "description": "Returns a list of all data providers.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              },
+              "top": {
+                "type": "integer"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "providerUUID": "11111111-1111-1111-1111-111111111111",
+                "name": "SAP_DATA_PROVIDER",
+                "status": "ACTIVE"
+              }
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers": {
+          "description": "Creates a new data provider.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "providerUUID": "22222222-2222-2222-2222-222222222222",
+            "status": "DRAFT"
+          }
+        },
+        "accessProvider": {
+          "description": "Lists properties of a data provider.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "identifier": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "identifier"
+            ]
+          },
+          "mock_response": {
+            "providerUUID": "11111111-1111-1111-1111-111111111111",
+            "status": "ACTIVE",
+            "products": 3
+          }
+        },
+        "PUT_v1_datasphere_marketplace_dsc_providers_identifier": {
+          "description": "Overwrites data provider properties.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "identifier": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "identifier",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "ACTIVE"
+          }
+        },
+        "PATCH_v1_datasphere_marketplace_dsc_providers_identifier": {
+          "description": "Updates selected provider properties.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "identifier": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "identifier",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "ACTIVE"
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_products": {
+          "description": "Returns a list of data products.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "filter": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "productUUID": "PROD-001",
+                "name": "BILLING_DATA_PRODUCT",
+                "lifecycleStatus": "RELEASED"
+              }
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_products": {
+          "description": "Creates a new data product.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "productUUID": "PROD-NEW",
+            "lifecycleStatus": "IN_PREPARATION"
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_products_productUUID": {
+          "description": "Lists properties of a data product.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid"
+            ]
+          },
+          "mock_response": {
+            "productUUID": "PROD-001",
+            "name": "BILLING_DATA_PRODUCT",
+            "lifecycleStatus": "RELEASED"
+          }
+        },
+        "PUT_v1_datasphere_marketplace_dsc_products_productUUID": {
+          "description": "Overwrites data product properties.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "productuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "productUUID": "PROD-001",
+            "lifecycleStatus": "RELEASED"
+          }
+        },
+        "DELETE_v1_datasphere_marketplace_dsc_products_productUUID": {
+          "description": "Deletes a data product.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid"
+            ]
+          },
+          "mock_response": {}
+        },
+        "PATCH_v1_datasphere_marketplace_dsc_products_productUUID": {
+          "description": "Updates data product properties.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "productuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "productUUID": "PROD-001"
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_products_productUUID_changeLifecycleStatus": {
+          "description": "Changes lifecycle status.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "productuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "productUUID": "PROD-001",
+            "lifecycleStatus": "RELEASED"
+          }
+        },
+        "POST_v1_datasphere_marketplace_consumer_products_productUUID_install": {
+          "description": "Install a product for a consumer.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "productuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "installationId": "INST-001",
+            "status": "INSTALLED"
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_products": {
+          "description": "Returns data products of a provider.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid"
+            ]
+          },
+          "mock_response": {
+            "results": [
+              {
+                "productUUID": "PROD-001",
+                "lifecycleStatus": "RELEASED"
+              }
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_products": {
+          "description": "Creates data product for a provider.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "productUUID": "PROD-NEW2"
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_products_productIdentifier": {
+          "description": "Lists data product by technical ID.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "productidentifier": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "productidentifier"
+            ]
+          },
+          "mock_response": {
+            "productUUID": "PROD-001"
+          }
+        },
+        "PUT_v1_datasphere_marketplace_dsc_providers_providerUUID_products_productIdentifier": {
+          "description": "Overwrites provider data product.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "productidentifier": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "productidentifier",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "lifecycleStatus": "RELEASED"
+          }
+        },
+        "DELETE_v1_datasphere_marketplace_dsc_providers_providerUUID_products_productIdentifier": {
+          "description": "Deletes provider data product.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "productidentifier": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "productidentifier"
+            ]
+          },
+          "mock_response": {}
+        },
+        "PATCH_v1_datasphere_marketplace_dsc_providers_providerUUID_products_productIdentifier": {
+          "description": "Updates provider data product.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "productidentifier": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "productidentifier"
+            ]
+          },
+          "mock_response": {}
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_products_productIdentifier_changeLifecycleStatus": {
+          "description": "Changes lifecycle status for provider.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "productidentifier": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "productidentifier",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "lifecycleStatus": "RELEASED"
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_activationKeys": {
+          "description": "Returns activation keys for provider.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid"
+            ]
+          },
+          "mock_response": {
+            "results": [
+              {
+                "keyId": "KEY-001",
+                "state": "unused"
+              }
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_activationKeys": {
+          "description": "Generates activation keys.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "keys": [
+              "KEY-002"
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_activationKeys_massDelete": {
+          "description": "Deletes all activation keys.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "deleted": 1
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses": {
+          "description": "Returns licenses for a provider.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid"
+            ]
+          },
+          "mock_response": {
+            "results": [
+              {
+                "licenseUUID": "LIC-001",
+                "lifecycleStatus": "ACTIVE"
+              }
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses": {
+          "description": "Creates a license.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "licenseUUID": "LIC-NEW"
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_massDelete": {
+          "description": "Deletes all licenses.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "deleted": 1
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID": {
+          "description": "Lists license properties.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid"
+            ]
+          },
+          "mock_response": {
+            "licenseUUID": "LIC-001",
+            "lifecycleStatus": "ACTIVE"
+          }
+        },
+        "PUT_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID": {
+          "description": "Overwrites license.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "licenseUUID": "LIC-001"
+          }
+        },
+        "DELETE_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID": {
+          "description": "Deletes a license.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid"
+            ]
+          },
+          "mock_response": {}
+        },
+        "PATCH_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID": {
+          "description": "Updates license.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid"
+            ]
+          },
+          "mock_response": {}
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID_changeLifecycleStatus": {
+          "description": "Changes license status.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "lifecycleStatus": "ACTIVE"
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID_products": {
+          "description": "Returns products assigned to a license.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid"
+            ]
+          },
+          "mock_response": {
+            "results": [
+              {
+                "productUUID": "PROD-001"
+              }
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID_products": {
+          "description": "Assigns products to a license.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "assigned": 1
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID_products_massDelete": {
+          "description": "Unassigns all products.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "unassigned": 1
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID_activationKeys": {
+          "description": "Returns license activation keys.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid"
+            ]
+          },
+          "mock_response": {
+            "results": [
+              {
+                "keyId": "LKEY-001"
+              }
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID_activationKeys": {
+          "description": "Generates license activation keys.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "keys": [
+              "LKEY-002"
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID_activationKeys_assignUsers": {
+          "description": "Allocates users to keys.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "assigned": 1
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_licenses_licenseUUID_activationKeys_massDelete": {
+          "description": "Deletes license keys.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "licenseuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "licenseuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "deleted": 1
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_products_productUUID_releases": {
+          "description": "Returns releases of a product.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid"
+            ]
+          },
+          "mock_response": {
+            "results": [
+              {
+                "releaseUUID": "REL-001",
+                "version": "1.0.0",
+                "status": "PUBLISHED"
+              }
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_products_productUUID_releases": {
+          "description": "Creates a product release.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "productuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "releaseUUID": "REL-002",
+            "status": "DRAFT"
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_products_productUUID_releases_releaseUUID": {
+          "description": "Lists release properties.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "releaseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid",
+              "releaseuuid"
+            ]
+          },
+          "mock_response": {
+            "releaseUUID": "REL-001",
+            "version": "1.0.0",
+            "status": "PUBLISHED"
+          }
+        },
+        "PUT_v1_datasphere_marketplace_dsc_products_productUUID_releases_releaseUUID": {
+          "description": "Overwrites a release.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "releaseuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "productuuid",
+              "releaseuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "releaseUUID": "REL-001"
+          }
+        },
+        "DELETE_v1_datasphere_marketplace_dsc_products_productUUID_releases_releaseUUID": {
+          "description": "Deletes a release.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "releaseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid",
+              "releaseuuid"
+            ]
+          },
+          "mock_response": {}
+        },
+        "PATCH_v1_datasphere_marketplace_dsc_products_productUUID_releases_releaseUUID": {
+          "description": "Updates release.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "releaseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid",
+              "releaseuuid"
+            ]
+          },
+          "mock_response": {}
+        },
+        "POST_v1_datasphere_marketplace_dsc_products_productUUID_releases_releaseUUID_publish": {
+          "description": "Publishes a release.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "releaseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid",
+              "releaseuuid"
+            ]
+          },
+          "mock_response": {
+            "status": "PUBLISHED"
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_products_productUUID_releases_releaseUUID_lock": {
+          "description": "Locks a release.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "releaseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid",
+              "releaseuuid"
+            ]
+          },
+          "mock_response": {
+            "locked": true
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_products_productUUID_releases_releaseUUID_unlock": {
+          "description": "Unlocks a release.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              },
+              "releaseuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid",
+              "releaseuuid"
+            ]
+          },
+          "mock_response": {
+            "locked": false
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_products_productUUID_releases_lockAll": {
+          "description": "Locks all releases.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid"
+            ]
+          },
+          "mock_response": {
+            "locked": 1
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_products_productUUID_releases_unlockAll": {
+          "description": "Unlocks all releases.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "productuuid"
+            ]
+          },
+          "mock_response": {
+            "unlocked": 1
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts": {
+          "description": "Returns contexts.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid"
+            ]
+          },
+          "mock_response": [
+            {
+              "contextUUID": "CTX-001",
+              "lifecycleStatus": "ACTIVE"
+            }
+          ]
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts": {
+          "description": "Creates a context.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "contextUUID": "CTX-NEW"
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_contextUUID": {
+          "description": "Lists context properties.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "contextuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "contextuuid"
+            ]
+          },
+          "mock_response": {
+            "contextUUID": "CTX-001",
+            "lifecycleStatus": "ACTIVE"
+          }
+        },
+        "PUT_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_contextUUID": {
+          "description": "Overwrites context.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "contextuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "contextuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "contextUUID": "CTX-001"
+          }
+        },
+        "DELETE_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_contextUUID": {
+          "description": "Deletes a context.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "contextuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "contextuuid"
+            ]
+          },
+          "mock_response": {}
+        },
+        "PATCH_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_contextUUID": {
+          "description": "Updates context.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "contextuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "contextuuid"
+            ]
+          },
+          "mock_response": {}
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_contextUUID_changeLifecycleStatus": {
+          "description": "Changes context status.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "contextuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "contextuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "lifecycleStatus": "ACTIVE"
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_leave": {
+          "description": "Leaves a context.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "left"
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_join": {
+          "description": "Joins a context.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "joined"
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_massDelete": {
+          "description": "Deletes all contexts.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "deleted": 1
+          }
+        },
+        "GET_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_contextUUID_activationKeys": {
+          "description": "Returns context activation keys.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "contextuuid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "contextuuid"
+            ]
+          },
+          "mock_response": {
+            "results": [
+              {
+                "keyId": "CKEY-001"
+              }
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_contextUUID_activationKeys": {
+          "description": "Generates context keys.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "contextuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "contextuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "keys": [
+              "CKEY-002"
+            ]
+          }
+        },
+        "POST_v1_datasphere_marketplace_dsc_providers_providerUUID_contexts_contextUUID_activationKeys_massDelete": {
+          "description": "Deletes context keys.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "provideruuid": {
+                "type": "string"
+              },
+              "contextuuid": {
+                "type": "string"
+              },
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "provideruuid",
+              "contextuuid",
+              "body"
+            ]
+          },
+          "mock_response": {
+            "deleted": 1
+          }
+        }
+      }
+    },
+    "standaloneservice": {
+      "mcp_server_name": "sap.mcp/standaloneservice",
+      "description": "MCP server for SAP Datasphere Consumption Service (OData).",
+      "tools": {
+        "get_metadata_standaloneservice": {
+          "description": "Get OData metadata.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": {
+            "edmx:Edmx": {
+              "Version": "1.0"
+            }
+          }
+        },
+        "batch_for_standaloneservice": {
+          "description": "Batch OData operations.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": {
+            "responses": []
+          }
+        },
+        "list_your_entity_name_for_standaloneservice": {
+          "description": "Retrieve entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              },
+              "top": {
+                "type": "integer"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {
+                "id": "DP-001",
+                "name": "Sales Data Product",
+                "status": "ACTIVE"
+              }
+            ]
+          }
+        },
+        "create_your_entity_name_for_standaloneservice": {
+          "description": "Create entity.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "your_entity_properties": {
+                "type": "object"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "id": "DP-NEW",
+            "status": "CREATED"
+          }
+        },
+        "update_your_entity_name_for_standaloneservice": {
+          "description": "Update entity.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "your_entity_properties": {
+                "type": "object"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "id": "DP-001",
+            "status": "UPDATED"
+          }
+        },
+        "delete_your_entity_name_for_standaloneservice": {
+          "description": "Delete entity.",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": {}
+        },
+        "get_your_entity_name_for_standaloneservice": {
+          "description": "Retrieve entity by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "select": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "id": "DP-001",
+            "name": "Sales Data Product",
+            "status": "ACTIVE"
+          }
+        },
+        "count_your_entity_name_for_standaloneservice": {
+          "description": "Count entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "mock_response": 8
+        }
+      }
+    },
+    "data-maturity-assessment": {
+      "mcp_server_name": "sap.mcp/data_maturity_assessment",
+      "description": "MCP server for SAP Datasphere Data Maturity Assessment API.",
+      "tools": {
+        "DHAPRocess_DHA_post": {
+          "description": "Analyze data quality, readiness and effectiveness.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "assessmentId": "DMA-001",
+            "score": 3.7,
+            "status": "completed",
+            "domains": [
+              {
+                "name": "completeness",
+                "score": 4.0
+              },
+              {
+                "name": "accuracy",
+                "score": 3.5
+              }
+            ]
+          }
+        }
+      }
+    },
+    "replication": {
+      "mcp_server_name": "sap.mcp/replication",
+      "description": "MCP server for SAP Datasphere Replication API.",
+      "tools": {
+        "replicateDivision": {
+          "description": "Replicate Division data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateDivision"
+          }
+        },
+        "newCustomerExtension": {
+          "description": "Replicate new CustomerExtension data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "newCustomerExtension"
+          }
+        },
+        "replicateSuppliers": {
+          "description": "Replicate Suppliers data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateSuppliers"
+          }
+        },
+        "replicatePlant": {
+          "description": "Replicate Plant data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicatePlant"
+          }
+        },
+        "replicateRegions_2": {
+          "description": "Replicate Regions_2 data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateRegions_2"
+          }
+        },
+        "replicateDeliveries": {
+          "description": "Replicate Deliveries data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateDeliveries"
+          }
+        },
+        "replicateUnitOfMeasureDimensions": {
+          "description": "Replicate UnitOfMeasureDimensions data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateUnitOfMeasureDimensions"
+          }
+        },
+        "replicateDistributionChannel": {
+          "description": "Replicate DistributionChannel data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateDistributionChannel"
+          }
+        },
+        "replicateCurrencies": {
+          "description": "Replicate Currencies data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateCurrencies"
+          }
+        },
+        "newCustomer": {
+          "description": "Replicate new Customer data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "newCustomer"
+          }
+        },
+        "replicateUnitOfMeasureISOCodes": {
+          "description": "Replicate UnitOfMeasureISOCodes data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateUnitOfMeasureISOCodes"
+          }
+        },
+        "replicateRegions_4": {
+          "description": "Replicate Regions_4 data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateRegions_4"
+          }
+        },
+        "replicateRegions": {
+          "description": "Replicate Regions data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateRegions"
+          }
+        },
+        "replicateSalesOrganization": {
+          "description": "Replicate SalesOrganization data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateSalesOrganization"
+          }
+        },
+        "replicateCompanyCode": {
+          "description": "Replicate CompanyCode data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateCompanyCode"
+          }
+        },
+        "replicateRegions_3": {
+          "description": "Replicate Regions_3 data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateRegions_3"
+          }
+        },
+        "replicateBillingDocumentItems": {
+          "description": "Replicate BillingDocumentItems data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateBillingDocumentItems"
+          }
+        },
+        "replicateCountries": {
+          "description": "Replicate Countries data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateCountries"
+          }
+        },
+        "replicateBatch": {
+          "description": "Replicate Batch data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateBatch"
+          }
+        },
+        "replicateMovementTypes": {
+          "description": "Replicate MovementTypes data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateMovementTypes"
+          }
+        },
+        "replicateUnitOfMeasures": {
+          "description": "Replicate UnitOfMeasures data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateUnitOfMeasures"
+          }
+        },
+        "replicateSupplierInvoiceItem": {
+          "description": "Replicate SupplierInvoiceItem data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateSupplierInvoiceItem"
+          }
+        },
+        "replicateProducts": {
+          "description": "Replicate Products data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateProducts"
+          }
+        },
+        "newProductExtension": {
+          "description": "Replicate new ProductExtension data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "newProductExtension"
+          }
+        },
+        "replicateRegions_1": {
+          "description": "Replicate Regions_1 data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateRegions_1"
+          }
+        },
+        "upsertMaterialDocument": {
+          "description": "Replicate MaterialDocument data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "upsertMaterialDocument"
+          }
+        },
+        "upsertInventory": {
+          "description": "Replicate Inventory data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "upsertInventory"
+          }
+        },
+        "upsertIncoterm": {
+          "description": "Replicate Incoterm data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "upsertIncoterm"
+          }
+        },
+        "replicateProductHierarchies": {
+          "description": "Replicate ProductHierarchies data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateProductHierarchies"
+          }
+        },
+        "replicateProductBrands": {
+          "description": "Replicate ProductBrands data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateProductBrands"
+          }
+        },
+        "replicateSalesAreas": {
+          "description": "Replicate SalesAreas data from SAP source system.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object"
+              },
+              "content_encoding": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "body"
+            ]
+          },
+          "mock_response": {
+            "status": "success",
+            "replicated": 10,
+            "entity": "replicateSalesAreas"
+          }
+        }
+      }
+    },
+    "data-builder": {
+      "tools": {
+        "list_spaces": {
+          "description": "List all Datasphere spaces the current user has access to.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "spaceId": "SALES_SPACE",
+                "name": "Sales Analytics Space",
+                "type": "SAP",
+                "status": "ACTIVE"
+              },
+              {
+                "spaceId": "FINANCE_SPACE",
+                "name": "Finance Reporting Space",
+                "type": "CUSTOM",
+                "status": "ACTIVE"
+              },
+              {
+                "spaceId": "SUPPLY_SPACE",
+                "name": "Supply Chain Space",
+                "type": "CUSTOM",
+                "status": "ACTIVE"
+              }
+            ]
+          }
+        },
+        "get_space": {
+          "description": "Get detailed information about a single Datasphere space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId"
+            ]
+          },
+          "mock_response": {
+            "spaceId": "SALES_SPACE",
+            "name": "Sales Analytics Space",
+            "type": "CUSTOM",
+            "status": "ACTIVE",
+            "storageUsedBytes": 12500000,
+            "storageQuotaBytes": 100000000
+          }
+        },
+        "list_entities": {
+          "description": "List entities (views, tables, analytical models, etc.) in a Datasphere space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "view",
+                  "analyticModel",
+                  "dataFlow",
+                  "erModel",
+                  "taskChain",
+                  "table"
+                ]
+              },
+              "$top": {
+                "type": "integer"
+              },
+              "$skip": {
+                "type": "integer"
+              },
+              "namePrefix": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId"
+            ]
+          },
+          "mock_response": {
+            "value": [
+              {
+                "technicalName": "SALES_ORDERS_RAW",
+                "type": "table",
+                "status": "DEPLOYED",
+                "label": "Sales Orders Raw"
+              },
+              {
+                "technicalName": "PRODUCT_DIM",
+                "type": "view",
+                "semanticUsage": "DIMENSION",
+                "status": "DEPLOYED",
+                "label": "Product Dimension"
+              },
+              {
+                "technicalName": "CUSTOMER_DIM",
+                "type": "view",
+                "semanticUsage": "DIMENSION",
+                "status": "DEPLOYED",
+                "label": "Customer Dimension"
+              },
+              {
+                "technicalName": "SALES_FACT",
+                "type": "view",
+                "semanticUsage": "FACT",
+                "status": "DEPLOYED",
+                "label": "Sales Fact View"
+              },
+              {
+                "technicalName": "MONTHLY_REVENUE_VIEW",
+                "type": "view",
+                "semanticUsage": "RELATIONAL_DATASET",
+                "status": "DESIGN_TIME_ONLY",
+                "label": "Monthly Revenue"
+              },
+              {
+                "technicalName": "SALES_ANALYTICAL_MODEL",
+                "type": "analyticModel",
+                "status": "DEPLOYED",
+                "label": "Sales Analytics Model"
+              }
+            ]
+          }
+        },
+        "get_entity": {
+          "description": "Retrieve the full JSON definition of a single entity from a Datasphere space.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "SALES_FACT",
+            "type": "view",
+            "semanticUsage": "FACT",
+            "status": "DEPLOYED",
+            "label": "Sales Fact View",
+            "columns": [
+              {
+                "name": "ORDER_ID",
+                "type": "NVARCHAR(36)",
+                "semanticType": "KEY"
+              },
+              {
+                "name": "CUSTOMER_KEY",
+                "type": "NVARCHAR(10)",
+                "semanticType": "FOREIGN_KEY",
+                "associatedDimension": "CUSTOMER_DIM"
+              },
+              {
+                "name": "PRODUCT_KEY",
+                "type": "NVARCHAR(18)",
+                "semanticType": "FOREIGN_KEY",
+                "associatedDimension": "PRODUCT_DIM"
+              },
+              {
+                "name": "ORDER_DATE",
+                "type": "DATE",
+                "semanticType": "DIMENSION"
+              },
+              {
+                "name": "NET_AMOUNT",
+                "type": "DECIMAL(15,2)",
+                "semanticType": "MEASURE",
+                "aggregation": "SUM"
+              },
+              {
+                "name": "QUANTITY",
+                "type": "INTEGER",
+                "semanticType": "MEASURE",
+                "aggregation": "SUM"
+              },
+              {
+                "name": "CURRENCY_CODE",
+                "type": "NVARCHAR(3)",
+                "semanticType": "CURRENCY"
+              }
+            ]
+          }
+        },
+        "get_entity_status": {
+          "description": "Get the current deployment status of an entity.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "MONTHLY_REVENUE_VIEW",
+            "status": "DESIGN_TIME_ONLY",
+            "lastModified": "2025-06-04T10:30:00Z",
+            "lastDeployed": null
+          }
+        },
+        "validate_entity": {
+          "description": "Validate an entity definition without persisting or deploying it.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "entityPayload": {
+                "type": "object",
+                "description": "Full entity definition JSON to validate"
+              }
+            },
+            "required": [
+              "spaceId",
+              "entityPayload"
+            ]
+          },
+          "mock_response": {
+            "valid": true,
+            "errors": [],
+            "warnings": [
+              {
+                "code": "W001",
+                "message": "Column NET_AMOUNT has no currency column assigned",
+                "severity": "WARNING"
+              }
+            ]
+          }
+        },
+        "create_graphical_view": {
+          "description": "Create a new Graphical View using a visual node-based definition.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "semanticUsage": {
+                "type": "string",
+                "enum": [
+                  "RELATIONAL_DATASET",
+                  "FACT",
+                  "DIMENSION",
+                  "HIERARCHY"
+                ]
+              },
+              "definition": {
+                "type": "object",
+                "description": "Node graph definition with source nodes, join conditions, projections, filters, aggregations, and calculated columns"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName",
+              "label",
+              "definition"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "V_MONTHLY_REVENUE_BY_REGION",
+            "status": "DESIGN_TIME_ONLY",
+            "created": true,
+            "message": "Graphical view V_MONTHLY_REVENUE_BY_REGION created successfully in space SALES_SPACE. Call deploy_entity to activate."
+          }
+        },
+        "update_graphical_view": {
+          "description": "Update an existing Graphical View definition.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "definition": {
+                "type": "object",
+                "description": "Updated full entity definition payload"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName",
+              "definition"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "V_MONTHLY_REVENUE_BY_REGION",
+            "status": "DESIGN_TIME_ONLY",
+            "updated": true
+          }
+        },
+        "create_sql_view": {
+          "description": "Create a new SQL View (Transformation View) using a SQL SELECT statement.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "sqlScript": {
+                "type": "string",
+                "description": "Full HANA SQL SELECT statement. Supports CTEs, window functions, aggregations, CASE WHEN, UNION."
+              },
+              "semanticUsage": {
+                "type": "string",
+                "enum": [
+                  "RELATIONAL_DATASET",
+                  "FACT",
+                  "DIMENSION"
+                ]
+              },
+              "inputParameters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "defaultValue": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "description": "Runtime input parameters referenced as $$PARAM_NAME$$ in SQL"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName",
+              "label",
+              "sqlScript"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "V_REVENUE_WINDOW_ANALYSIS",
+            "status": "DESIGN_TIME_ONLY",
+            "created": true,
+            "message": "SQL view V_REVENUE_WINDOW_ANALYSIS created successfully in space SALES_SPACE. Call deploy_entity to activate."
+          }
+        },
+        "update_sql_view": {
+          "description": "Update the SQL script and metadata of an existing SQL View.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "sqlScript": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "semanticUsage": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "V_REVENUE_WINDOW_ANALYSIS",
+            "status": "DESIGN_TIME_ONLY",
+            "updated": true
+          }
+        },
+        "create_analytical_model": {
+          "description": "Create a new Analytical Model (star schema semantic layer) for SAC consumption.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "factSource": {
+                "type": "string",
+                "description": "technicalName of the Fact View or Relational Dataset"
+              },
+              "dimensionAssociations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "dimensionTechnicalName": {
+                      "type": "string"
+                    },
+                    "joinKey": {
+                      "type": "string"
+                    },
+                    "factKey": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "calculatedMeasures": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "formula": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "restrictedMeasures": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "baseMeasure": {
+                      "type": "string"
+                    },
+                    "filter": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "variables": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName",
+              "label",
+              "factSource"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "AM_SALES_ANALYTICS",
+            "status": "DESIGN_TIME_ONLY",
+            "created": true,
+            "message": "Analytical model AM_SALES_ANALYTICS created successfully in space SALES_SPACE. Call deploy_entity to activate."
+          }
+        },
+        "update_analytical_model": {
+          "description": "Update an existing Analytical Model.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "dimensionAssociations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "calculatedMeasures": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "restrictedMeasures": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "variables": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "AM_SALES_ANALYTICS",
+            "status": "DESIGN_TIME_ONLY",
+            "updated": true
+          }
+        },
+        "create_data_flow": {
+          "description": "Create a new Data Flow ETL/ELT pipeline.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "sourceEntity": {
+                "type": "string",
+                "description": "technicalName of the source table or view"
+              },
+              "targetEntity": {
+                "type": "string",
+                "description": "technicalName of the target local table"
+              },
+              "loadType": {
+                "type": "string",
+                "enum": [
+                  "INITIAL",
+                  "DELTA"
+                ]
+              },
+              "operators": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "Projection",
+                        "Filter",
+                        "Aggregation",
+                        "Join",
+                        "Union",
+                        "Script"
+                      ]
+                    },
+                    "config": {
+                      "type": "object",
+                      "description": "Operator-specific configuration"
+                    }
+                  }
+                }
+              },
+              "deltaSettings": {
+                "type": "object",
+                "properties": {
+                  "deltaColumn": {
+                    "type": "string"
+                  },
+                  "deltaMode": {
+                    "type": "string",
+                    "enum": [
+                      "UPSERT",
+                      "APPEND",
+                      "DELETE_INSERT"
+                    ]
+                  }
+                }
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName",
+              "label",
+              "sourceEntity",
+              "targetEntity",
+              "loadType"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "DF_SALES_INCREMENTAL_LOAD",
+            "status": "DESIGN_TIME_ONLY",
+            "created": true,
+            "message": "Data flow DF_SALES_INCREMENTAL_LOAD created in space SALES_SPACE. Call deploy_entity to activate, then run via task chain."
+          }
+        },
+        "update_data_flow": {
+          "description": "Update an existing Data Flow definition.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "operators": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "deltaSettings": {
+                "type": "object"
+              },
+              "loadType": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "DF_SALES_INCREMENTAL_LOAD",
+            "status": "DESIGN_TIME_ONLY",
+            "updated": true
+          }
+        },
+        "create_dimension_view": {
+          "description": "Create a Dimension View (semanticUsage=DIMENSION) for master data slicing.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "sourceEntity": {
+                "type": "string"
+              },
+              "keyColumns": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Columns forming the unique key"
+              },
+              "attributeColumns": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Descriptive attribute columns"
+              },
+              "textAssociation": {
+                "type": "object",
+                "properties": {
+                  "textEntityTechnicalName": {
+                    "type": "string"
+                  },
+                  "joinKey": {
+                    "type": "string"
+                  },
+                  "textColumn": {
+                    "type": "string"
+                  },
+                  "localeColumn": {
+                    "type": "string"
+                  }
+                }
+              },
+              "hierarchies": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "PARENT_CHILD",
+                        "LEVEL_BASED"
+                      ]
+                    },
+                    "parentColumn": {
+                      "type": "string"
+                    },
+                    "levels": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName",
+              "label",
+              "sourceEntity",
+              "keyColumns"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "DIM_CUSTOMER",
+            "status": "DESIGN_TIME_ONLY",
+            "created": true,
+            "message": "Dimension view DIM_CUSTOMER created in space SALES_SPACE. Call deploy_entity to activate."
+          }
+        },
+        "create_fact_view": {
+          "description": "Create a Fact View (semanticUsage=FACT) with declared measures and dimension associations.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "sourceEntity": {
+                "type": "string"
+              },
+              "keyColumns": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "measureColumns": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "aggregation": {
+                      "type": "string",
+                      "enum": [
+                        "SUM",
+                        "COUNT",
+                        "MIN",
+                        "MAX",
+                        "AVG"
+                      ]
+                    },
+                    "currencyColumn": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "dimensionAssociations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "foreignKeyColumn": {
+                      "type": "string"
+                    },
+                    "dimensionTechnicalName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName",
+              "label",
+              "sourceEntity",
+              "keyColumns",
+              "measureColumns"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "FACT_SALES",
+            "status": "DESIGN_TIME_ONLY",
+            "created": true,
+            "message": "Fact view FACT_SALES created in space SALES_SPACE with 3 measures and 2 dimension associations. Call deploy_entity to activate."
+          }
+        },
+        "create_er_model": {
+          "description": "Create an ER Model for data governance documentation.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "entities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "technicalNames of entities to include"
+              },
+              "associations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "sourceEntity": {
+                      "type": "string"
+                    },
+                    "targetEntity": {
+                      "type": "string"
+                    },
+                    "sourceColumn": {
+                      "type": "string"
+                    },
+                    "targetColumn": {
+                      "type": "string"
+                    },
+                    "cardinality": {
+                      "type": "string",
+                      "enum": [
+                        "ONE_TO_ONE",
+                        "ONE_TO_MANY",
+                        "MANY_TO_ONE",
+                        "MANY_TO_MANY"
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName",
+              "label",
+              "entities"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "ER_SALES_SCHEMA",
+            "status": "DESIGN_TIME_ONLY",
+            "created": true,
+            "message": "ER model ER_SALES_SCHEMA created with 5 entities and 4 associations."
+          }
+        },
+        "update_er_model": {
+          "description": "Update an existing ER Model.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "entities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "associations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "ER_SALES_SCHEMA",
+            "updated": true
+          }
+        },
+        "create_task_chain": {
+          "description": "Create a Task Chain to orchestrate and schedule Data Flow executions.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "tasks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "technicalName": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "onSuccess": {
+                      "type": "string"
+                    },
+                    "onFailure": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "schedule": {
+                "type": "string",
+                "description": "Cron expression for scheduling (optional)"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName",
+              "label",
+              "tasks"
+            ]
+          },
+          "mock_response": {
+            "technicalName": "TC_NIGHTLY_REFRESH",
+            "status": "DESIGN_TIME_ONLY",
+            "created": true,
+            "message": "Task chain TC_NIGHTLY_REFRESH created with 3 tasks. Call deploy_entity to activate."
+          }
+        },
+        "delete_entity": {
+          "description": "Delete an entity from a Datasphere space. WARNING: Irreversible.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "deleted": true,
+            "message": "Entity deleted successfully."
+          }
+        },
+        "deploy_entity": {
+          "description": "Deploy an entity to Datasphere HANA Cloud, making it queryable.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "jobId": "deploy-job-abc123",
+            "status": "RUNNING",
+            "message": "Deployment started. Poll get_deploy_job_status with jobId=deploy-job-abc123."
+          }
+        },
+        "undeploy_entity": {
+          "description": "Undeploy an entity from Datasphere HANA Cloud.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "jobId": "undeploy-job-xyz789",
+            "status": "RUNNING"
+          }
+        },
+        "get_deploy_job_status": {
+          "description": "Poll the status of an asynchronous deploy or undeploy job.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "jobId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "jobId"
+            ]
+          },
+          "mock_response": {
+            "jobId": "deploy-job-abc123",
+            "status": "COMPLETED",
+            "progress": 100,
+            "message": "Deployment completed successfully. Entity is now DEPLOYED and queryable."
+          }
+        },
+        "list_entity_impact": {
+          "description": "Get impact analysis: which entities depend on the given entity.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "dependents": [
+              {
+                "technicalName": "FACT_SALES",
+                "type": "view",
+                "status": "DEPLOYED"
+              },
+              {
+                "technicalName": "AM_SALES_ANALYTICS",
+                "type": "analyticModel",
+                "status": "DEPLOYED"
+              }
+            ]
+          }
+        },
+        "list_entity_lineage": {
+          "description": "Get upstream data lineage for an entity.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "technicalName": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "spaceId",
+              "technicalName"
+            ]
+          },
+          "mock_response": {
+            "lineage": [
+              {
+                "technicalName": "SALES_ORDERS_RAW",
+                "type": "table",
+                "spaceId": "SALES_SPACE",
+                "level": 1
+              },
+              {
+                "technicalName": "S4_SALES_ORDERS",
+                "type": "remoteTable",
+                "connectionId": "S4HANA_PROD",
+                "level": 2
+              }
+            ]
+          }
+        },
+        "get_column_suggestions": {
+          "description": "Get column name and type suggestions from source entities for view design.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {
+                "type": "string"
+              },
+              "sourceEntities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "technicalNames of source entities"
+              }
+            },
+            "required": [
+              "spaceId",
+              "sourceEntities"
+            ]
+          },
+          "mock_response": {
+            "columns": [
+              {
+                "name": "ORDER_ID",
+                "type": "NVARCHAR(36)",
+                "entity": "SALES_ORDERS_RAW",
+                "semanticSuggestion": "KEY"
+              },
+              {
+                "name": "CUSTOMER_ID",
+                "type": "NVARCHAR(10)",
+                "entity": "SALES_ORDERS_RAW",
+                "semanticSuggestion": "FOREIGN_KEY"
+              },
+              {
+                "name": "NET_AMOUNT",
+                "type": "DECIMAL(15,2)",
+                "entity": "SALES_ORDERS_RAW",
+                "semanticSuggestion": "MEASURE",
+                "suggestedAggregation": "SUM"
+              },
+              {
+                "name": "QUANTITY",
+                "type": "INTEGER",
+                "entity": "SALES_ORDERS_RAW",
+                "semanticSuggestion": "MEASURE",
+                "suggestedAggregation": "SUM"
+              },
+              {
+                "name": "ORDER_DATE",
+                "type": "DATE",
+                "entity": "SALES_ORDERS_RAW",
+                "semanticSuggestion": "DIMENSION"
+              },
+              {
+                "name": "REGION_CODE",
+                "type": "NVARCHAR(4)",
+                "entity": "SALES_ORDERS_RAW",
+                "semanticSuggestion": "DIMENSION"
+              },
+              {
+                "name": "CURRENCY_CODE",
+                "type": "NVARCHAR(3)",
+                "entity": "SALES_ORDERS_RAW",
+                "semanticSuggestion": "CURRENCY"
+              }
+            ]
+          }
+        }
+      },
+      "mcp_server_name": "sap.mcp/data_builder"
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_for_agent": "data-product-lifecycle-agent",
+    "mock_mode": true,
+    "deterministic": true,
+    "generation_date": "2026-06-04",
+    "total_servers": 9,
+    "total_tools": 151,
+    "generated_from": [
+      "translation.json"
+    ]
+  }
+}

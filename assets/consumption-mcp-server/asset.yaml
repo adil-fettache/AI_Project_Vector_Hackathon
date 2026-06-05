@@ -1,0 +1,14 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: consumption-mcp-server
+  version: 1.0.0
+  description: >
+    MCP server for SAP Datasphere Consumption Service API (OData).
+    Provides tools for consuming data products and analytical datasets.
+
+type: mcp-server
+
+spec:
+  translationFile: translation.json

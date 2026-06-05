@@ -1,0 +1,24 @@
+apiVersion: solution.sap/v1
+kind: Solution
+
+metadata:
+  name: data-product-lifecycle-agent-3eafb
+  version: 1.0.0
+  description: >
+    Autonomous Data Product Lifecycle Agent that orchestrates the end-to-end
+    lifecycle of SAP-managed and custom Data Products in SAP Business Data Cloud.
+    Covers discovery, SAP and non-SAP integration, activation, data quality
+    validation, governance, analytical modeling, and continuous monitoring.
+
+assets:
+  - ref: ./assets/data-product-lifecycle-agent/asset.yaml
+  - ref: ./assets/catalog-mcp-server/asset.yaml
+  - ref: ./assets/connections-mcp-server/asset.yaml
+  - ref: ./assets/pipeline-engine-mcp-server/asset.yaml
+  - ref: ./assets/data-profiling-mcp-server/asset.yaml
+  - ref: ./assets/enterprise-information-management-mcp-server/asset.yaml
+  - ref: ./assets/data-sharing-cockpit-mcp-server/asset.yaml
+  - ref: ./assets/consumption-mcp-server/asset.yaml
+  - ref: ./assets/data-maturity-assessment-mcp-server/asset.yaml
+  - ref: ./assets/replication-mcp-server/asset.yaml
+  - ref: ./assets/data-builder-mcp-server/asset.yaml

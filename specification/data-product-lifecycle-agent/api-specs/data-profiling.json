@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Data Profiling",
+    "description": "Data profiling is the process of examining and analyzing data from existing sources to understand its structure, quality, and content. It helps identify anomalies, missing values, patterns, and inconsistencies within datasets. This process is crucial in data quality management, ensuring that data is accurate, complete, and suitable for its intended use. This API accepts Excel or CSV files and generates comprehensive profiling reports to identify anomalies, missing values, and patterns.",
+    "version": "1.0"
+  },
+  "paths": {
+    "/profiling": {
+      "post": {
+        "tags": [
+          "Data Profiling"
+        ],
+        "summary": "Data profiling report",
+        "operationId": "prf_report_profiling_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_prf_report_profiling_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_prf_report_profiling_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File",
+            "description": "provide any kind of data in either excel/CSV format for analysis"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_prf_report_profiling_post"
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-key"
+      }
+    }
+  },
+  "x-sap-shortText": "Profiling is the process of analyzing data to assess its quality, structure, and consistency for effective use",
+  "servers": [
+    {
+      "url": "http://apihub.pilogcloud.com:6723",
+      "description": "Data profiling is the process of examining and analyzing data from existing sources to understand its structure, quality, and content. It helps identify anomalies, missing values, patterns, and inconsistencies within datasets. This process is crucial in data quality management, ensuring that data is accurate, complete, and suitable for its intended use"
+    }
+  ]
+}

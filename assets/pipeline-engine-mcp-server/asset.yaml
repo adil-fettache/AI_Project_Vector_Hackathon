@@ -1,0 +1,14 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: pipeline-engine-mcp-server
+  version: 1.0.0
+  description: >
+    MCP server for SAP Datasphere Pipeline Engine API.
+    Provides tools for managing vFlow pipeline graphs and executions.
+
+type: mcp-server
+
+spec:
+  translationFile: translation.json

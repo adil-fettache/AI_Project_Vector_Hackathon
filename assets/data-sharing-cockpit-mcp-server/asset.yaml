@@ -1,0 +1,14 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: data-sharing-cockpit-mcp-server
+  version: 1.0.0
+  description: >
+    MCP server for SAP Datasphere Data Sharing Cockpit API.
+    Provides tools for managing data providers, products, licenses, contexts, and releases.
+
+type: mcp-server
+
+spec:
+  translationFile: translation.json

@@ -1,0 +1,115 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Data Maturity Assessment",
+    "description": "Data Maturity Assessment API for analyzing data quality and maturity, processing uploaded Excel or CSV files to generate assessments based on specified criteria such as duplicates, inconsistencies, and scorecards.",
+    "version": "1.0"
+  },
+  "paths": {
+    "/DHA": {
+      "post": {
+        "tags": [
+          "Data Maturity Assessment"
+        ],
+        "summary": "Analyze the data quality, readiness and effectiveness across different domains",
+        "operationId": "DHAPRocess_DHA_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_DHAPRocess_DHA_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_DHAPRocess_DHA_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          },
+          "duplicates": {
+            "type": "string",
+            "title": "Duplicates"
+          },
+          "long_length": {
+            "type": "string",
+            "title": "Long Length"
+          },
+          "ref_inconsistencies": {
+            "type": "string",
+            "title": "Ref Inconsistencies"
+          },
+          "kds_data": {
+            "type": "string",
+            "title": "Kds Data"
+          },
+          "top_cat": {
+            "type": "string",
+            "title": "Top Cat"
+          },
+          "score_card": {
+            "type": "string",
+            "title": "Score Card"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file",
+          "duplicates",
+          "long_length",
+          "ref_inconsistencies",
+          "kds_data",
+          "top_cat",
+          "score_card"
+        ],
+        "title": "Body_DHAPRocess_DHA_post"
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-key"
+      }
+    }
+  },
+  "x-sap-shortText": "Helps in analyzing data quality and generating assessments based on predefined criteria",
+  "servers": [
+    {
+      "url": "http://apihub.pilogcloud.com:6727",
+      "description": "DMA API for analyzing data quality and maturity."
+    }
+  ]
+}

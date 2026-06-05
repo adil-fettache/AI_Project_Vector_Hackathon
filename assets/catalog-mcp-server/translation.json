@@ -1,0 +1,70 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:Catalog:v1",
+    "type": "edmx"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/catalogservice",
+    "title": "catalogservice",
+    "version": "1.0.0",
+    "description": "MCP server for the catalogservice service."
+  },
+  "tools": [
+    {
+      "name": "get_metadata_catalogservice",
+      "title": "get_metadata_catalogservice",
+      "description": "Get metadata of the OData service."
+    },
+    {
+      "name": "batch_for_catalogservice",
+      "title": "batch_for_catalogservice",
+      "description": "Execute multiple OData operations in a single batch request."
+    },
+    {
+      "name": "list_spaces_for_catalogservice",
+      "title": "list_spaces_for_catalogservice",
+      "description": "Retrieve a list of spaces."
+    },
+    {
+      "name": "get_spaces_for_catalogservice",
+      "title": "get_spaces_for_catalogservice",
+      "description": "Retrieve a single space by key."
+    },
+    {
+      "name": "count_spaces_for_catalogservice",
+      "title": "count_spaces_for_catalogservice",
+      "description": "Get the total count of spaces."
+    },
+    {
+      "name": "list_assets_for_catalogservice",
+      "title": "list_assets_for_catalogservice",
+      "description": "Retrieve a list of assets."
+    },
+    {
+      "name": "get_assets_for_catalogservice",
+      "title": "get_assets_for_catalogservice",
+      "description": "Retrieve a single asset by key."
+    },
+    {
+      "name": "count_assets_for_catalogservice",
+      "title": "count_assets_for_catalogservice",
+      "description": "Get the total count of assets."
+    },
+    {
+      "name": "list_assets_in_spaces_for_catalogservice",
+      "title": "list_assets_in_spaces_for_catalogservice",
+      "description": "Navigate from spaces to related assets."
+    },
+    {
+      "name": "count_assets_in_spaces_for_catalogservice",
+      "title": "count_assets_in_spaces_for_catalogservice",
+      "description": "Count assets in a space."
+    },
+    {
+      "name": "get_space_in_assets_for_catalogservice",
+      "title": "get_space_in_assets_for_catalogservice",
+      "description": "Navigate from assets to the related space."
+    }
+  ]
+}
