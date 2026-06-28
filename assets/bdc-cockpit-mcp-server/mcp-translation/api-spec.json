@@ -1,0 +1,112 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "BDC Cockpit API",
+    "version": "1.0"
+  },
+  "servers": [],
+  "paths": {
+    "/api/v1/dataProducts": {
+      "get": {
+        "operationId": "listBdcDataProducts",
+        "summary": "List all Data Products registered in BDC Cockpit",
+        "parameters": [
+          { "name": "$top", "in": "query", "schema": { "type": "integer" }, "description": "Max records to return" },
+          { "name": "$filter", "in": "query", "schema": { "type": "string" }, "description": "OData filter expression" },
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["DRAFT", "PUBLISHED", "DEPRECATED"] }, "description": "Filter by lifecycle status" }
+        ],
+        "responses": { "200": { "description": "List of Data Products with id, name, status, sourceType" } }
+      },
+      "post": {
+        "operationId": "registerDataProduct",
+        "summary": "Register a new custom Data Product in BDC Cockpit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "sourceType", "description"],
+                "properties": {
+                  "name": { "type": "string", "description": "Data Product technical name (unique)" },
+                  "displayName": { "type": "string", "description": "Human-readable display name" },
+                  "description": { "type": "string", "description": "Business description of the Data Product" },
+                  "sourceType": { "type": "string", "enum": ["SAP_MANAGED", "CUSTOM_HDL", "CUSTOM_DATASPHERE", "CUSTOM_EXTERNAL"], "description": "Source type of the Data Product" },
+                  "owner": { "type": "string", "description": "Owner team or person" },
+                  "tags": { "type": "string", "description": "Comma-separated tags" },
+                  "hdlPath": { "type": "string", "description": "HDL OUTPUTPORT path for CUSTOM_HDL type" },
+                  "deltaShareTable": { "type": "string", "description": "Delta Share table name for CUSTOM_HDL type" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Data Product registered, returns id and status=DRAFT" } }
+      }
+    },
+    "/api/v1/dataProducts/{id}": {
+      "get": {
+        "operationId": "getBdcDataProduct",
+        "summary": "Get details of a specific BDC Data Product",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Data Product ID" }
+        ],
+        "responses": { "200": { "description": "Full Data Product details" } }
+      },
+      "patch": {
+        "operationId": "updateDataProduct",
+        "summary": "Update metadata or configuration of a BDC Data Product",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "displayName": { "type": "string" },
+                  "description": { "type": "string" },
+                  "owner": { "type": "string" },
+                  "tags": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Data Product updated" } }
+      }
+    },
+    "/api/v1/dataProducts/{id}/publish": {
+      "post": {
+        "operationId": "publishDataProduct",
+        "summary": "Publish a DRAFT Data Product to the BDC catalog, making it available for consumption",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Data Product ID to publish" }
+        ],
+        "responses": { "200": { "description": "Data Product published, status changes to PUBLISHED" } }
+      }
+    },
+    "/api/v1/dataProducts/{id}/deprecate": {
+      "post": {
+        "operationId": "deprecateDataProduct",
+        "summary": "Deprecate a published Data Product",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Data Product deprecated" } }
+      }
+    },
+    "/api/v1/dataProducts/{id}/status": {
+      "get": {
+        "operationId": "getDataProductStatus",
+        "summary": "Get the current lifecycle status of a BDC Data Product",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Current status: DRAFT, PUBLISHED, DEPRECATED, ERROR" } }
+      }
+    }
+  }
+}

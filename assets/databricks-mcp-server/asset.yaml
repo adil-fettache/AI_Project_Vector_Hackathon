@@ -1,0 +1,16 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: databricks-mcp-server
+  version: "1.0.0"
+  description: "MCP server for Databricks REST API — notebook management, job execution, cluster inspection, run monitoring"
+
+type: mcp-server
+
+destinations:
+  - name: DATABRICKS
+    description: "Databricks workspace REST API base URL (e.g. https://<workspace-id>.azuredatabricks.net)"
+
+mcp:
+  translationFile: mcp-translation/translation.json

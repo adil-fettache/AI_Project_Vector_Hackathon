@@ -1,0 +1,141 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:Connections:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/connections",
+    "title": "connections",
+    "version": "1.0.0",
+    "description": "MCP server for the connections service."
+  },
+  "tools": [
+    {
+      "name": "listConnections",
+      "title": "listConnections",
+      "description": "Returns all configured data source connections in Datasphere",
+      "openApiType": {
+        "operationId": "listConnections",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "Filter by space ID",
+            "in": "query",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "$skip",
+            "description": "",
+            "in": "query",
+            "newParameterName": "skip"
+          },
+          {
+            "name": "$filter",
+            "description": "",
+            "in": "query",
+            "newParameterName": "filter"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "createConnection",
+      "title": "createConnection",
+      "description": "Creates a new data source connection in Datasphere. Supports SAP and non-SAP sources via REST, JDBC, OData, SFTP and other protocols",
+      "openApiType": {
+        "operationId": "createConnection",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "getConnection",
+      "title": "getConnection",
+      "description": "Returns detailed configuration for a specific Datasphere connection",
+      "openApiType": {
+        "operationId": "getConnection",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "connectionid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "deleteConnection",
+      "title": "deleteConnection",
+      "description": "Delete a connection",
+      "openApiType": {
+        "operationId": "deleteConnection",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "connectionid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "updateConnection",
+      "title": "updateConnection",
+      "description": "Updates configuration parameters for an existing Datasphere connection",
+      "openApiType": {
+        "operationId": "updateConnection",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "connectionId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "connectionid"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "validateConnection",
+      "title": "validateConnection",
+      "description": "Tests the connectivity for a Datasphere connection to verify credentials and reachability",
+      "openApiType": {
+        "operationId": "validateConnection",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "connectionid"
+          }
+        ],
+        "requestBody": {}
+      }
+    }
+  ]
+}

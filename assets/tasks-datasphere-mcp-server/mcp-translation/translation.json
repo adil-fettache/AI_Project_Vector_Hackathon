@@ -1,0 +1,142 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:Tasks:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/tasks",
+    "title": "tasks",
+    "version": "1.0.0",
+    "description": "MCP server for the tasks service."
+  },
+  "tools": [
+    {
+      "name": "listTasks",
+      "title": "listTasks",
+      "description": "Returns all tasks (task chains, scheduled runs) in Datasphere",
+      "openApiType": {
+        "operationId": "listTasks",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "Filter by space ID",
+            "in": "query",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "type",
+            "description": "Filter by task type (TASK_CHAIN, DATAFLOW, REPLICATION_FLOW)",
+            "in": "query",
+            "newParameterName": "type"
+          },
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "$skip",
+            "description": "",
+            "in": "query",
+            "newParameterName": "skip"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getTask",
+      "title": "getTask",
+      "description": "Returns detailed configuration and status of a Datasphere task",
+      "openApiType": {
+        "operationId": "getTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "taskid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "runTask",
+      "title": "runTask",
+      "description": "Triggers immediate execution of a Datasphere task (task chain, data flow, etc.)",
+      "openApiType": {
+        "operationId": "runTask",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "taskId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "taskid"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "getTaskRuns",
+      "title": "getTaskRuns",
+      "description": "Returns the execution history of a specific Datasphere task",
+      "openApiType": {
+        "operationId": "getTaskRuns",
+        "parameters": [
+          {
+            "name": "taskId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "taskid"
+          },
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "status",
+            "description": "",
+            "in": "query",
+            "newParameterName": "status"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getTaskRunLogs",
+      "title": "getTaskRunLogs",
+      "description": "Returns detailed execution logs for a specific task run",
+      "openApiType": {
+        "operationId": "getTaskRunLogs",
+        "parameters": [
+          {
+            "name": "taskId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "taskid"
+          },
+          {
+            "name": "runId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "runid"
+          }
+        ],
+        "requestBody": {}
+      }
+    }
+  ]
+}

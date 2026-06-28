@@ -1,0 +1,586 @@
+{
+  "servers": {
+    "catalog-datasphere": {
+      "mcp_server_name": "catalog-datasphere-mcp-server",
+      "description": "MCP server for SAP Datasphere Catalog — list spaces, artifacts, metadata",
+      "tools": {
+        "list_spaces": {
+          "description": "List all Datasphere spaces",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "top": {"type": "integer", "description": "Maximum number of spaces to return"}
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {"spaceId": "SALES_SPACE", "spaceName": "Sales Analytics", "status": "ACTIVE"},
+              {"spaceId": "FINANCE_SPACE", "spaceName": "Finance Data", "status": "ACTIVE"},
+              {"spaceId": "HR_SPACE", "spaceName": "HR Workspace", "status": "INACTIVE"}
+            ]
+          }
+        },
+        "get_space": {
+          "description": "Get details of a specific Datasphere space",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {"type": "string", "description": "Space identifier"}
+            },
+            "required": ["spaceId"]
+          },
+          "mock_response": {
+            "spaceId": "SALES_SPACE",
+            "spaceName": "Sales Analytics",
+            "status": "ACTIVE",
+            "diskStorageQuota": 1073741824,
+            "inMemoryStorageQuota": 536870912
+          }
+        },
+        "list_artifacts": {
+          "description": "List artifacts in a Datasphere space",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {"type": "string", "description": "Space identifier"},
+              "artifactType": {"type": "string", "description": "Type: view, flow, model"},
+              "top": {"type": "integer", "description": "Max results"}
+            },
+            "required": ["spaceId"]
+          },
+          "mock_response": {
+            "results": [
+              {"artifactId": "SalesView", "artifactType": "SQLView", "status": "DEPLOYED", "spaceId": "SALES_SPACE"},
+              {"artifactId": "RevenueModel", "artifactType": "AnalyticModel", "status": "DEPLOYED", "spaceId": "SALES_SPACE"}
+            ]
+          }
+        },
+        "get_artifact": {
+          "description": "Get details of a specific artifact",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {"type": "string", "description": "Space identifier"},
+              "artifactId": {"type": "string", "description": "Artifact identifier"}
+            },
+            "required": ["spaceId", "artifactId"]
+          },
+          "mock_response": {
+            "artifactId": "SalesView",
+            "artifactType": "SQLView",
+            "status": "DEPLOYED",
+            "description": "Sales data SQL view"
+          }
+        },
+        "get_metadata": {
+          "description": "Get governance metadata for a data product from the catalog",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name or ID"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "productName": "SalesOrder",
+            "description": "Sales order data product",
+            "owner": "Finance Team",
+            "tags": ["sales", "orders", "finance"],
+            "lineage": "SAP S/4HANA -> Datasphere -> SAC"
+          }
+        },
+        "list_data_products": {
+          "description": "List SAP-managed data products in the BDC catalog",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "top": {"type": "integer", "description": "Max results"}
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {"name": "SalesOrder", "type": "SAP-managed", "status": "ACTIVE", "targetSpace": "SALES_SPACE"},
+              {"name": "PurchaseOrder", "type": "SAP-managed", "status": "INACTIVE", "targetSpace": "FINANCE_SPACE"},
+              {"name": "FinancialStatement", "type": "SAP-managed", "status": "ACTIVE", "targetSpace": "FINANCE_SPACE"}
+            ]
+          }
+        },
+        "search_data_products": {
+          "description": "Search SAP-managed data products by name, type, or application",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "query": {"type": "string", "description": "Search term"},
+              "top": {"type": "integer", "description": "Max results"}
+            },
+            "required": ["query"]
+          },
+          "mock_response": {
+            "results": [
+              {"name": "SalesOrder", "type": "SAP-managed", "status": "ACTIVE", "targetSpace": "SALES_SPACE", "relevance": 0.95}
+            ]
+          }
+        },
+        "get_data_product_details": {
+          "description": "Get full details of a SAP-managed data product",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name or ID"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "name": "SalesOrder",
+            "type": "SAP-managed",
+            "status": "ACTIVE",
+            "schema": {"fields": ["OrderId", "CustomerId", "Amount", "Currency", "Date"]},
+            "targetSpace": "SALES_SPACE",
+            "prerequisites": ["S4HANA_CONNECTION"]
+          }
+        },
+        "activate_data_product": {
+          "description": "Activate a SAP-managed data product in a target space",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"},
+              "targetSpace": {"type": "string", "description": "Target Datasphere space ID"}
+            },
+            "required": ["productName", "targetSpace"]
+          },
+          "mock_response": {
+            "status": "ACTIVATION_INITIATED",
+            "taskId": "task_001",
+            "productName": "SalesOrder",
+            "targetSpace": "SALES_SPACE",
+            "message": "Activation task started successfully"
+          }
+        },
+        "write_metadata": {
+          "description": "Write governance metadata for a data product",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"},
+              "description": {"type": "string", "description": "Description"},
+              "owner": {"type": "string", "description": "Owner"},
+              "tags": {"type": "string", "description": "Tags as JSON list"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "status": "METADATA_WRITTEN",
+            "productName": "SalesOrder",
+            "updatedFields": ["description", "owner", "tags"]
+          }
+        },
+        "list_lineage": {
+          "description": "List lineage information for a data product",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "productName": "SalesOrder",
+            "sources": ["SAP S/4HANA SALES_ORDER"],
+            "targets": ["SAC SalesStory"],
+            "transformations": ["SalesView SQL transformation"]
+          }
+        }
+      }
+    },
+    "connections-datasphere": {
+      "mcp_server_name": "connections-datasphere-mcp-server",
+      "description": "MCP server for SAP Datasphere Connections — list, create, validate connections",
+      "tools": {
+        "list_connections": {
+          "description": "List all registered connections in Datasphere",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "top": {"type": "integer", "description": "Max results"}
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {"connectionId": "S4H_CONN", "name": "S/4HANA Production", "type": "ABAP", "status": "ACTIVE"},
+              {"connectionId": "JIRA_CONN", "name": "Jira Cloud", "type": "REST", "status": "ACTIVE"},
+              {"connectionId": "PG_CONN", "name": "PostgreSQL Analytics", "type": "JDBC", "status": "INACTIVE"}
+            ]
+          }
+        },
+        "get_connection": {
+          "description": "Get details of a specific connection",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "connectionId": {"type": "string", "description": "Connection identifier"}
+            },
+            "required": ["connectionId"]
+          },
+          "mock_response": {
+            "connectionId": "S4H_CONN",
+            "name": "S/4HANA Production",
+            "type": "ABAP",
+            "status": "ACTIVE",
+            "host": "s4hana.example.com",
+            "port": 443
+          }
+        },
+        "create_connection": {
+          "description": "Create a new connection in Datasphere",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "connectionName": {"type": "string", "description": "Connection name"},
+              "connectionType": {"type": "string", "description": "Connection type (REST, JDBC, ABAP, etc.)"},
+              "connectionParams": {"type": "string", "description": "JSON connection parameters"},
+              "spaceId": {"type": "string", "description": "Target space ID"}
+            },
+            "required": ["connectionName", "connectionType", "connectionParams"]
+          },
+          "mock_response": {
+            "connectionId": "NEW_CONN_001",
+            "connectionName": "New Connection",
+            "status": "CREATED",
+            "message": "Connection created successfully"
+          }
+        },
+        "validate_connection": {
+          "description": "Validate an existing connection",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "connectionId": {"type": "string", "description": "Connection identifier"}
+            },
+            "required": ["connectionId"]
+          },
+          "mock_response": {
+            "connectionId": "S4H_CONN",
+            "status": "ACTIVE",
+            "validationResult": "SUCCESS",
+            "message": "Connection is healthy"
+          }
+        },
+        "delete_connection": {
+          "description": "Delete a connection from Datasphere",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "connectionId": {"type": "string", "description": "Connection identifier"}
+            },
+            "required": ["connectionId"]
+          },
+          "mock_response": {
+            "status": "DELETED",
+            "connectionId": "OLD_CONN",
+            "message": "Connection deleted"
+          }
+        },
+        "list_connection_types": {
+          "description": "List available connection types in Datasphere",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {"type": "ABAP", "description": "SAP ABAP systems (S/4HANA, ECC)"},
+              {"type": "JDBC", "description": "JDBC database connections"},
+              {"type": "REST", "description": "REST API connections"},
+              {"type": "OData", "description": "OData V4 service connections"},
+              {"type": "SFTP", "description": "SFTP file transfer connections"}
+            ]
+          }
+        }
+      }
+    },
+    "tasks-datasphere": {
+      "mcp_server_name": "tasks-datasphere-mcp-server",
+      "description": "MCP server for SAP Datasphere Tasks — run, monitor tasks",
+      "tools": {
+        "run_task_chain": {
+          "description": "Run a Datasphere task chain",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {"type": "string", "description": "Space identifier"},
+              "taskChainId": {"type": "string", "description": "Task chain identifier"}
+            },
+            "required": ["spaceId", "taskChainId"]
+          },
+          "mock_response": {
+            "taskId": "task_chain_001",
+            "status": "RUNNING",
+            "spaceId": "SALES_SPACE",
+            "taskChainId": "SALES_ETL_CHAIN",
+            "startedAt": "2024-01-01T10:00:00Z"
+          }
+        },
+        "get_task_logs": {
+          "description": "Get execution logs for a task",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {"type": "string", "description": "Space identifier"},
+              "taskId": {"type": "string", "description": "Task identifier"}
+            },
+            "required": ["spaceId", "taskId"]
+          },
+          "mock_response": {
+            "taskId": "task_chain_001",
+            "status": "COMPLETED",
+            "logs": [
+              {"timestamp": "2024-01-01T10:00:00Z", "level": "INFO", "message": "Task started"},
+              {"timestamp": "2024-01-01T10:05:00Z", "level": "INFO", "message": "Task completed successfully"}
+            ]
+          }
+        },
+        "deploy_artifact": {
+          "description": "Deploy a Datasphere artifact to a space",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "spaceId": {"type": "string", "description": "Target space identifier"},
+              "artifactName": {"type": "string", "description": "Artifact name"},
+              "artifactType": {"type": "string", "description": "Artifact type"},
+              "definition": {"type": "string", "description": "JSON artifact definition"}
+            },
+            "required": ["spaceId", "artifactName", "artifactType"]
+          },
+          "mock_response": {
+            "taskId": "deploy_task_001",
+            "status": "COMPLETED",
+            "artifactName": "SalesView",
+            "spaceId": "SALES_SPACE",
+            "message": "Artifact deployed successfully"
+          }
+        }
+      }
+    },
+    "monitoring-datasphere": {
+      "mcp_server_name": "monitoring-datasphere-mcp-server",
+      "description": "MCP server for SAP Datasphere Monitoring — health, alerts, thresholds",
+      "tools": {
+        "get_health": {
+          "description": "Get health status of a deployed data product",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "productName": "SalesOrder",
+            "healthScore": 95,
+            "activeViolations": 0,
+            "lastCheckTimestamp": "2024-01-01T00:00:00Z",
+            "status": "HEALTHY"
+          }
+        },
+        "list_alerts": {
+          "description": "List active monitoring alerts for a data product",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"},
+              "top": {"type": "integer", "description": "Max results"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "results": [],
+            "count": 0
+          }
+        },
+        "set_thresholds": {
+          "description": "Configure alert thresholds for a data product",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"},
+              "thresholds": {"type": "string", "description": "JSON threshold configuration"}
+            },
+            "required": ["productName", "thresholds"]
+          },
+          "mock_response": {
+            "status": "CONFIGURED",
+            "productName": "SalesOrder",
+            "message": "Alert thresholds configured successfully"
+          }
+        },
+        "register_quality_monitoring": {
+          "description": "Register ongoing quality monitoring rules for a data product",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"},
+              "rules": {"type": "string", "description": "JSON quality rules"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "status": "MONITORING_REGISTERED",
+            "productName": "SalesOrder",
+            "rulesCount": 2,
+            "message": "Quality monitoring registered"
+          }
+        }
+      }
+    },
+    "dqm": {
+      "mcp_server_name": "dqm-mcp-server",
+      "description": "MCP server for SAP Data Quality Management microservices",
+      "tools": {
+        "evaluate_rules": {
+          "description": "Evaluate data quality rules against a dataset",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"},
+              "rules": {"type": "string", "description": "JSON quality rules to evaluate"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "results": [
+              {"ruleType": "completeness", "severity": "info", "status": "pass", "detail": "All key fields populated"},
+              {"ruleType": "freshness", "severity": "warning", "status": "pass", "detail": "Data updated 2 hours ago"}
+            ]
+          }
+        },
+        "create_quality_rule": {
+          "description": "Create a new data quality rule",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "ruleType": {"type": "string", "description": "Rule type: completeness, freshness, referential_integrity, custom"},
+              "severity": {"type": "string", "description": "Severity: info, warning, critical"},
+              "definition": {"type": "string", "description": "Rule definition in JSON"}
+            },
+            "required": ["ruleType", "severity"]
+          },
+          "mock_response": {
+            "ruleId": "rule_001",
+            "status": "CREATED",
+            "ruleType": "completeness",
+            "severity": "critical"
+          }
+        }
+      }
+    },
+    "metadata-management": {
+      "mcp_server_name": "metadata-management-mcp-server",
+      "description": "MCP server for Metadata Management Cloud Edition",
+      "tools": {
+        "write_metadata": {
+          "description": "Write governance metadata for a data product",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"},
+              "description": {"type": "string", "description": "Description"},
+              "owner": {"type": "string", "description": "Owner team or person"},
+              "tags": {"type": "string", "description": "Tags as JSON list"},
+              "lineage": {"type": "string", "description": "Lineage description"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "status": "WRITTEN",
+            "productName": "SalesOrder",
+            "updatedFields": ["description", "owner", "tags"]
+          }
+        },
+        "read_metadata": {
+          "description": "Read governance metadata for a data product",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "productName": "SalesOrder",
+            "description": "Sales order data product",
+            "owner": "Finance Team",
+            "tags": ["sales", "finance"],
+            "lineage": "SAP S/4HANA -> Datasphere"
+          }
+        }
+      }
+    },
+    "sac": {
+      "mcp_server_name": "sac-mcp-server",
+      "description": "MCP server for SAP Analytics Cloud Activities Service",
+      "tools": {
+        "check_connectivity": {
+          "description": "Check connectivity to the SAC endpoint",
+          "input_schema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "mock_response": {
+            "status": "connected",
+            "capabilities": ["publish_model", "create_story", "share_story"],
+            "version": "2024.1"
+          }
+        },
+        "publish_model": {
+          "description": "Publish a data product model/story to SAC",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "productName": {"type": "string", "description": "Data product name"},
+              "modelType": {"type": "string", "description": "SAC model type: live or import"}
+            },
+            "required": ["productName"]
+          },
+          "mock_response": {
+            "status": "published",
+            "productName": "SalesOrder",
+            "sacUrl": "https://sac.example.com/stories/salesorder",
+            "storyId": "story_001"
+          }
+        },
+        "list_stories": {
+          "description": "List available SAC stories",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "top": {"type": "integer", "description": "Max results"}
+            },
+            "required": []
+          },
+          "mock_response": {
+            "results": [
+              {"storyId": "story_001", "name": "Sales Overview", "status": "PUBLISHED"},
+              {"storyId": "story_002", "name": "Finance Dashboard", "status": "DRAFT"}
+            ]
+          }
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_for_agent": "bdc-data-lifecycle-agent",
+    "mock_mode": true,
+    "deterministic": true,
+    "total_servers": 7,
+    "total_tools": 33,
+    "generated_from": ["translation.json (catalog)", "translation.json (connections)", "translation.json (tasks)", "stubs (monitoring, dqm, metadata-management, sac)"],
+    "generation_date": "2024-06-25"
+  }
+}

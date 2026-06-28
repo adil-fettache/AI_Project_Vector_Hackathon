@@ -1,0 +1,74 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: bdc-data-lifecycle-agent
+  version: "2.3.0"
+  description: "Autonomous Data Product Lifecycle Agent for SAP Business Data Cloud (BDC). Full landscape scope: BDC, Datasphere, Databricks, HANA Data Lake (HDL), BDC Cockpit, SAP sources (S/4HANA, SuccessFactors, Ariba, Fieldglass, Concur), and non-SAP sources via any integration protocol."
+
+type: agent
+
+container:
+  buildPath: .
+  port: 5000
+
+probes:
+  startup:
+    path: /.well-known/agent.json
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 18
+  liveness:
+    path: /.well-known/agent.json
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readiness:
+    path: /.well-known/agent.json
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+requires:
+  # R01: Landscape discovery — Datasphere Catalog (spaces, assets, data products)
+  - name: catalog-datasphere-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.datasphere:apiResource:data-product-lifecycle-agent-3eafb_catalog-datasphere-mcp-server:v1
+  # R03: Non-SAP source integration — Datasphere Connections
+  - name: connections-datasphere-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.datasphere:apiResource:data-product-lifecycle-agent-3eafb_connections-datasphere-mcp-server:v1
+  # R04: Artifact modeling & deployment — Datasphere Tasks
+  - name: tasks-datasphere-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.datasphere:apiResource:data-product-lifecycle-agent-3eafb_tasks-datasphere-mcp-server:v1
+  # R02: BDC Data Product activation/deactivation lifecycle
+  - name: bdc-data-products-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.datasphere:apiResource:data-product-lifecycle-agent-3eafb_bdc-data-products-mcp-server:v1
+  # R07: Monitoring, health metrics, task run history
+  - name: monitoring-datasphere-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.datasphere:apiResource:data-product-lifecycle-agent-3eafb_monitoring-datasphere-mcp-server:v1
+  # R06: Governance — catalog metadata, lineage, glossary, tags
+  - name: metadata-management-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.datasphere:apiResource:data-product-lifecycle-agent-3eafb_metadata-management-mcp-server:v1
+  # R05: Data quality enforcement — profiling jobs, quality rules, quality gate
+  - name: dqm-datasphere-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.datasphere:apiResource:data-product-lifecycle-agent-3eafb_dqm-datasphere-mcp-server:v1
+  # R08: SAC consumption — connections, models, stories, data import (future extension)
+  - name: sac-datasphere-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.datasphere:apiResource:data-product-lifecycle-agent-3eafb_sac-datasphere-mcp-server:v1
+  # R09: Databricks — notebook management, job execution, cluster inspection
+  - name: databricks-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.databricks:apiResource:DatabricksRestAPI:v2
+  # R10: BDC Cockpit — Data Product registration, publication, lifecycle management
+  - name: bdc-cockpit-mcp-server
+    kind: mcp-server
+    ordId: customer.mcpbuilder.bdc:apiResource:BdcCockpitAPI:v1

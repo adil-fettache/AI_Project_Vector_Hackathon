@@ -1,0 +1,157 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.clm:apiResource:DataProducts:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/data_products",
+    "title": "data_products",
+    "version": "1.0.0",
+    "description": "MCP server for the data_products service."
+  },
+  "tools": [
+    {
+      "name": "listDataProducts",
+      "title": "listDataProducts",
+      "description": "Returns a list of all available SAP-managed data products in the BDC catalog",
+      "openApiType": {
+        "operationId": "listDataProducts",
+        "parameters": [
+          {
+            "name": "$top",
+            "description": "Maximum number of records to return",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "$skip",
+            "description": "Number of records to skip",
+            "in": "query",
+            "newParameterName": "skip"
+          },
+          {
+            "name": "$filter",
+            "description": "OData filter expression",
+            "in": "query",
+            "newParameterName": "filter"
+          },
+          {
+            "name": "$search",
+            "description": "Full-text search term",
+            "in": "query",
+            "newParameterName": "search"
+          },
+          {
+            "name": "status",
+            "description": "Filter by activation status",
+            "in": "query",
+            "newParameterName": "status"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getDataProduct",
+      "title": "getDataProduct",
+      "description": "Returns detailed information about a specific SAP-managed data product including its schema, status and usage",
+      "openApiType": {
+        "operationId": "getDataProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Data product ID",
+            "in": "path",
+            "newParameterName": "id"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "activateDataProduct",
+      "title": "activateDataProduct",
+      "description": "Initiates the activation workflow for an SAP-managed data product, making it available for consumption",
+      "openApiType": {
+        "operationId": "activateDataProduct",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "id",
+            "description": "Data product ID to activate",
+            "in": "path",
+            "newParameterName": "id"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "deactivateDataProduct",
+      "title": "deactivateDataProduct",
+      "description": "Deactivates a previously activated SAP-managed data product",
+      "openApiType": {
+        "operationId": "deactivateDataProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "",
+            "in": "path",
+            "newParameterName": "id"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getDataProductActivationStatus",
+      "title": "getDataProductActivationStatus",
+      "description": "Returns the current activation status, replication state and last run time of a data product",
+      "openApiType": {
+        "operationId": "getDataProductActivationStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "",
+            "in": "path",
+            "newParameterName": "id"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "listActivationJobs",
+      "title": "listActivationJobs",
+      "description": "Returns a list of all data product activation and deactivation jobs with their current status",
+      "openApiType": {
+        "operationId": "listActivationJobs",
+        "parameters": [],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getActivationJob",
+      "title": "getActivationJob",
+      "description": "Returns detailed status and logs of a specific data product activation job",
+      "openApiType": {
+        "operationId": "getActivationJob",
+        "parameters": [
+          {
+            "name": "jobId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "jobid"
+          }
+        ],
+        "requestBody": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,359 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SAP Analytics Cloud Integration",
+    "version": "1.0.0",
+    "description": "SAP Analytics Cloud REST API for managing connections, importing models, publishing stories and sharing analytics content from SAP Datasphere"
+  },
+  "paths": {
+    "/connections": {
+      "get": {
+        "operationId": "listSacConnections",
+        "summary": "List SAC connections",
+        "description": "Returns all configured data connections in SAP Analytics Cloud",
+        "responses": {
+          "200": {
+            "description": "List of connections",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {"$ref": "#/components/schemas/SacConnection"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createSacConnection",
+        "summary": "Create a new SAC connection",
+        "description": "Creates a new data connection in SAP Analytics Cloud pointing to a Datasphere model",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {"$ref": "#/components/schemas/SacConnection"}
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Connection created",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/SacConnection"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connections/{connectionId}": {
+      "get": {
+        "operationId": "getSacConnection",
+        "summary": "Get a SAC connection",
+        "parameters": [
+          {"name": "connectionId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Connection details",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/SacConnection"}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteSacConnection",
+        "summary": "Delete a SAC connection",
+        "parameters": [
+          {"name": "connectionId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "204": {"description": "Connection deleted"}
+        }
+      }
+    },
+    "/connections/{connectionId}/validate": {
+      "post": {
+        "operationId": "validateSacConnection",
+        "summary": "Validate a SAC connection",
+        "description": "Tests connectivity for a SAC data connection",
+        "parameters": [
+          {"name": "connectionId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Validation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {"type": "boolean"},
+                    "message": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/models": {
+      "get": {
+        "operationId": "listSacModels",
+        "summary": "List SAC models",
+        "description": "Returns all analytic models in SAP Analytics Cloud",
+        "parameters": [
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}},
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "List of models",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {"$ref": "#/components/schemas/SacModel"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/models/{modelId}": {
+      "get": {
+        "operationId": "getSacModel",
+        "summary": "Get a SAC model",
+        "parameters": [
+          {"name": "modelId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Model details",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/SacModel"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stories": {
+      "get": {
+        "operationId": "listSacStories",
+        "summary": "List SAC stories",
+        "description": "Returns all SAP Analytics Cloud stories (dashboards and reports)",
+        "parameters": [
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}},
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "List of stories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {"$ref": "#/components/schemas/SacStory"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stories/{storyId}": {
+      "get": {
+        "operationId": "getSacStory",
+        "summary": "Get a SAC story",
+        "parameters": [
+          {"name": "storyId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Story details",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/SacStory"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stories/{storyId}/publish": {
+      "post": {
+        "operationId": "publishSacStory",
+        "summary": "Publish a SAC story",
+        "description": "Publishes a SAC story making it available to end users",
+        "parameters": [
+          {"name": "storyId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipients": {"type": "array", "items": {"type": "string"}, "description": "User emails to share with"},
+                  "accessLevel": {"type": "string", "enum": ["VIEW", "EDIT"]}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Story published",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "storyId": {"type": "string"},
+                    "storyUrl": {"type": "string"},
+                    "publishedAt": {"type": "string", "format": "date-time"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dataImport/jobs": {
+      "post": {
+        "operationId": "createDataImportJob",
+        "summary": "Import data from Datasphere to SAC",
+        "description": "Creates a data import job to pull data from a Datasphere model or view into SAC",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["modelId", "connectionId"],
+                "properties": {
+                  "modelId": {"type": "string"},
+                  "connectionId": {"type": "string"},
+                  "importMode": {"type": "string", "enum": ["FULL", "INCREMENTAL"]},
+                  "mappings": {"type": "array", "items": {"type": "object"}}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Import job created",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ImportJob"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dataImport/jobs/{jobId}": {
+      "get": {
+        "operationId": "getDataImportJobStatus",
+        "summary": "Get data import job status",
+        "parameters": [
+          {"name": "jobId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Import job status",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ImportJob"}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SacConnection": {
+        "type": "object",
+        "properties": {
+          "connectionId": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "type": {"type": "string", "enum": ["DATASPHERE", "HANA_CLOUD", "ODATA", "REST"]},
+          "host": {"type": "string"},
+          "spaceId": {"type": "string", "description": "Datasphere space ID (for DATASPHERE type)"},
+          "status": {"type": "string", "enum": ["ACTIVE", "INACTIVE", "ERROR"]},
+          "createdAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "SacModel": {
+        "type": "object",
+        "properties": {
+          "modelId": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "connectionId": {"type": "string"},
+          "type": {"type": "string", "enum": ["PLANNING", "ANALYTIC", "LIVE"]},
+          "status": {"type": "string"},
+          "lastRefreshedAt": {"type": "string", "format": "date-time"},
+          "dimensions": {"type": "array", "items": {"type": "string"}},
+          "measures": {"type": "array", "items": {"type": "string"}}
+        }
+      },
+      "SacStory": {
+        "type": "object",
+        "properties": {
+          "storyId": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "modelId": {"type": "string"},
+          "status": {"type": "string", "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]},
+          "storyUrl": {"type": "string"},
+          "createdBy": {"type": "string"},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "modifiedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "ImportJob": {
+        "type": "object",
+        "properties": {
+          "jobId": {"type": "string"},
+          "modelId": {"type": "string"},
+          "status": {"type": "string", "enum": ["PENDING", "RUNNING", "COMPLETED", "FAILED"]},
+          "startedAt": {"type": "string", "format": "date-time"},
+          "completedAt": {"type": "string", "format": "date-time"},
+          "rowsImported": {"type": "integer"},
+          "errorMessage": {"type": "string"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Databricks REST API",
+    "version": "2.0"
+  },
+  "servers": [],
+  "paths": {
+    "/api/2.0/workspace/import": {
+      "post": {
+        "operationId": "importNotebook",
+        "summary": "Import (create or overwrite) a notebook in the Databricks workspace",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["path", "format", "content"],
+                "properties": {
+                  "path": { "type": "string", "description": "Workspace path for the notebook, e.g. /Users/me/my_notebook" },
+                  "format": { "type": "string", "enum": ["SOURCE", "HTML", "JUPYTER", "DBC"], "description": "Notebook format — use SOURCE for .py" },
+                  "language": { "type": "string", "enum": ["PYTHON", "SCALA", "SQL", "R"], "description": "Notebook language" },
+                  "content": { "type": "string", "description": "Base64-encoded notebook content" },
+                  "overwrite": { "type": "boolean", "description": "Overwrite if notebook already exists" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Notebook created" } }
+      }
+    },
+    "/api/2.0/workspace/export": {
+      "get": {
+        "operationId": "exportNotebook",
+        "summary": "Export (read) a notebook from the Databricks workspace",
+        "parameters": [
+          { "name": "path", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Workspace path of the notebook" },
+          { "name": "format", "in": "query", "schema": { "type": "string", "enum": ["SOURCE", "HTML", "JUPYTER", "DBC"] } }
+        ],
+        "responses": { "200": { "description": "Notebook content" } }
+      }
+    },
+    "/api/2.1/jobs/create": {
+      "post": {
+        "operationId": "createJob",
+        "summary": "Create a Databricks job linked to an existing notebook",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "tasks"],
+                "properties": {
+                  "name": { "type": "string", "description": "Job name" },
+                  "tasks": { "type": "string", "description": "JSON array of task definitions including notebook_task with notebook_path and cluster reference" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Job created, returns job_id" } }
+      }
+    },
+    "/api/2.1/jobs/run-now": {
+      "post": {
+        "operationId": "runJob",
+        "summary": "Trigger an immediate run of an existing Databricks job",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["job_id"],
+                "properties": {
+                  "job_id": { "type": "integer", "description": "Databricks job ID to run" },
+                  "notebook_params": { "type": "string", "description": "Optional JSON object of notebook parameter overrides" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Run triggered, returns run_id" } }
+      }
+    },
+    "/api/2.1/jobs/runs/get": {
+      "get": {
+        "operationId": "getJobRun",
+        "summary": "Get the current status and result of a Databricks job run",
+        "parameters": [
+          { "name": "run_id", "in": "query", "required": true, "schema": { "type": "integer" }, "description": "Databricks run ID" }
+        ],
+        "responses": { "200": { "description": "Run status, result state, and output" } }
+      }
+    },
+    "/api/2.0/clusters/list": {
+      "get": {
+        "operationId": "listClusters",
+        "summary": "List all available Databricks clusters in the workspace",
+        "responses": { "200": { "description": "List of clusters with cluster_id, cluster_name, state" } }
+      }
+    },
+    "/api/2.0/clusters/get": {
+      "get": {
+        "operationId": "getCluster",
+        "summary": "Get details of a specific Databricks cluster",
+        "parameters": [
+          { "name": "cluster_id", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Databricks cluster ID" }
+        ],
+        "responses": { "200": { "description": "Cluster details including state, Spark version, libraries" } }
+      }
+    }
+  }
+}

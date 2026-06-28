@@ -1,0 +1,225 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Metadata Management (Cloud Edition)",
+    "version": "1.0.0",
+    "description": "SAP Datasphere Metadata Management API for reading and writing business metadata, lineage, tags, glossary terms and governance attributes"
+  },
+  "paths": {
+    "/catalog/assets": {
+      "get": {
+        "operationId": "searchCatalogAssets",
+        "summary": "Search catalog assets",
+        "description": "Search for data assets in the catalog with full-text search and filter support",
+        "parameters": [
+          {"name": "q", "in": "query", "schema": {"type": "string"}, "description": "Full-text search query"},
+          {"name": "type", "in": "query", "schema": {"type": "string"}, "description": "Asset type filter (e.g. VIEW, TABLE, DATAFLOW)"},
+          {"name": "spaceId", "in": "query", "schema": {"type": "string"}},
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Catalog assets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/CatalogAsset"}},
+                    "count": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/assets/{assetId}": {
+      "get": {
+        "operationId": "getCatalogAsset",
+        "summary": "Get catalog asset metadata",
+        "description": "Returns full metadata for a specific catalog asset including business description, tags, lineage and glossary terms",
+        "parameters": [
+          {"name": "assetId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset metadata",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CatalogAsset"}}}
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateCatalogAssetMetadata",
+        "summary": "Update business metadata for a catalog asset",
+        "description": "Updates business metadata fields (description, tags, glossary terms, custom attributes) for a catalog asset",
+        "parameters": [
+          {"name": "assetId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/MetadataUpdate"}}}
+        },
+        "responses": {
+          "200": {
+            "description": "Updated metadata",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CatalogAsset"}}}
+          }
+        }
+      }
+    },
+    "/catalog/assets/{assetId}/lineage": {
+      "get": {
+        "operationId": "getAssetLineage",
+        "summary": "Get data lineage for an asset",
+        "description": "Returns the data lineage graph showing upstream sources and downstream consumers",
+        "parameters": [
+          {"name": "assetId", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "direction", "in": "query", "schema": {"type": "string", "enum": ["UPSTREAM", "DOWNSTREAM", "BOTH"]}},
+          {"name": "depth", "in": "query", "schema": {"type": "integer"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Lineage graph",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/LineageGraph"}}}
+          }
+        }
+      }
+    },
+    "/catalog/glossary/terms": {
+      "get": {
+        "operationId": "listGlossaryTerms",
+        "summary": "List glossary terms",
+        "description": "Returns all business glossary terms available for tagging data assets",
+        "responses": {
+          "200": {
+            "description": "Glossary terms",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/GlossaryTerm"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createGlossaryTerm",
+        "summary": "Create a new glossary term",
+        "description": "Creates a new business glossary term in the catalog",
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/GlossaryTerm"}}}
+        },
+        "responses": {
+          "201": {
+            "description": "Created term",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/GlossaryTerm"}}}
+          }
+        }
+      }
+    },
+    "/catalog/tags": {
+      "get": {
+        "operationId": "listTags",
+        "summary": "List all tags",
+        "description": "Returns all available tags that can be applied to catalog assets",
+        "responses": {
+          "200": {
+            "description": "Tags",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {"value": {"type": "array", "items": {"type": "string"}}}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/assets/{assetId}/tags": {
+      "put": {
+        "operationId": "setAssetTags",
+        "summary": "Set tags on a catalog asset",
+        "description": "Replaces all tags on a catalog asset with the provided set",
+        "parameters": [
+          {"name": "assetId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {"tags": {"type": "array", "items": {"type": "string"}}}
+              }
+            }
+          }
+        },
+        "responses": {"200": {"description": "Tags updated"}}
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CatalogAsset": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "technicalName": {"type": "string"},
+          "type": {"type": "string"},
+          "spaceId": {"type": "string"},
+          "description": {"type": "string"},
+          "businessDescription": {"type": "string"},
+          "tags": {"type": "array", "items": {"type": "string"}},
+          "glossaryTerms": {"type": "array", "items": {"type": "string"}},
+          "owner": {"type": "string"},
+          "sensitivityLevel": {"type": "string", "enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]},
+          "customAttributes": {"type": "object"},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "modifiedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "MetadataUpdate": {
+        "type": "object",
+        "properties": {
+          "description": {"type": "string"},
+          "businessDescription": {"type": "string"},
+          "tags": {"type": "array", "items": {"type": "string"}},
+          "glossaryTerms": {"type": "array", "items": {"type": "string"}},
+          "owner": {"type": "string"},
+          "sensitivityLevel": {"type": "string", "enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]},
+          "customAttributes": {"type": "object"}
+        }
+      },
+      "LineageGraph": {
+        "type": "object",
+        "properties": {
+          "rootAssetId": {"type": "string"},
+          "nodes": {"type": "array", "items": {"type": "object", "properties": {"id": {"type": "string"}, "name": {"type": "string"}, "type": {"type": "string"}}}},
+          "edges": {"type": "array", "items": {"type": "object", "properties": {"from": {"type": "string"}, "to": {"type": "string"}, "transformationType": {"type": "string"}}}}
+        }
+      },
+      "GlossaryTerm": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "term": {"type": "string"},
+          "definition": {"type": "string"},
+          "domain": {"type": "string"},
+          "synonyms": {"type": "array", "items": {"type": "string"}},
+          "owner": {"type": "string"}
+        }
+      }
+    }
+  }
+}

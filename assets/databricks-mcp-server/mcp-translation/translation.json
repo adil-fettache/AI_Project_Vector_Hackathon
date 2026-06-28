@@ -1,0 +1,83 @@
+{
+  "mcpTranslationVersion": "1.0",
+  "target": {
+    "ordId": "customer.mcpbuilder.databricks:apiResource:DatabricksRestAPI:v2",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "databricks-mcp-server",
+    "description": "MCP server for Databricks REST API — notebook management, job execution, cluster inspection"
+  },
+  "tools": [
+    {
+      "name": "importNotebook",
+      "title": "Import Notebook",
+      "description": "Create or overwrite a Python notebook in the Databricks workspace. Use this to upload generated DPE SDK extraction notebooks before execution.",
+      "openApiType": {
+        "operationId": "importNotebook",
+        "method": "POST",
+        "path": "/api/2.0/workspace/import"
+      }
+    },
+    {
+      "name": "exportNotebook",
+      "title": "Export Notebook",
+      "description": "Read and return an existing notebook from the Databricks workspace to inspect its current content.",
+      "openApiType": {
+        "operationId": "exportNotebook",
+        "method": "GET",
+        "path": "/api/2.0/workspace/export"
+      }
+    },
+    {
+      "name": "createJob",
+      "title": "Create Job",
+      "description": "Create a Databricks job linked to a notebook. Returns job_id for subsequent execution.",
+      "openApiType": {
+        "operationId": "createJob",
+        "method": "POST",
+        "path": "/api/2.1/jobs/create"
+      }
+    },
+    {
+      "name": "runJob",
+      "title": "Run Job",
+      "description": "Trigger an immediate run of a Databricks job. Returns run_id to monitor progress.",
+      "openApiType": {
+        "operationId": "runJob",
+        "method": "POST",
+        "path": "/api/2.1/jobs/run-now"
+      }
+    },
+    {
+      "name": "getJobRun",
+      "title": "Get Job Run Status",
+      "description": "Poll the current status and result of a Databricks job run by run_id. Use to monitor extraction progress.",
+      "openApiType": {
+        "operationId": "getJobRun",
+        "method": "GET",
+        "path": "/api/2.1/jobs/runs/get"
+      }
+    },
+    {
+      "name": "listClusters",
+      "title": "List Clusters",
+      "description": "List all available Databricks clusters in the workspace. Use to identify preconfigured compute for notebook execution.",
+      "openApiType": {
+        "operationId": "listClusters",
+        "method": "GET",
+        "path": "/api/2.0/clusters/list"
+      }
+    },
+    {
+      "name": "getCluster",
+      "title": "Get Cluster Details",
+      "description": "Get full details of a Databricks cluster including state, Spark version, installed libraries, and environment variables.",
+      "openApiType": {
+        "operationId": "getCluster",
+        "method": "GET",
+        "path": "/api/2.0/clusters/get"
+      }
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Connections",
+    "version": "1.0.0",
+    "description": "SAP Datasphere Connections API for managing connections to remote data sources (SAP and non-SAP systems)"
+  },
+  "paths": {
+    "/connections": {
+      "get": {
+        "operationId": "listConnections",
+        "summary": "List all connections",
+        "description": "Returns all configured data source connections in Datasphere",
+        "parameters": [
+          {"name": "spaceId", "in": "query", "schema": {"type": "string"}, "description": "Filter by space ID"},
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "List of connections",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/Connection"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createConnection",
+        "summary": "Create a new connection",
+        "description": "Creates a new data source connection in Datasphere. Supports SAP and non-SAP sources via REST, JDBC, OData, SFTP and other protocols",
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ConnectionCreate"}}}
+        },
+        "responses": {
+          "201": {
+            "description": "Connection created",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Connection"}}}
+          }
+        }
+      }
+    },
+    "/connections/{connectionId}": {
+      "get": {
+        "operationId": "getConnection",
+        "summary": "Get a connection",
+        "description": "Returns detailed configuration for a specific Datasphere connection",
+        "parameters": [
+          {"name": "connectionId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Connection details",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Connection"}}}
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateConnection",
+        "summary": "Update a connection",
+        "description": "Updates configuration parameters for an existing Datasphere connection",
+        "parameters": [
+          {"name": "connectionId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ConnectionCreate"}}}
+        },
+        "responses": {
+          "200": {
+            "description": "Updated connection",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Connection"}}}
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteConnection",
+        "summary": "Delete a connection",
+        "parameters": [
+          {"name": "connectionId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {"204": {"description": "Connection deleted"}}
+      }
+    },
+    "/connections/{connectionId}/validate": {
+      "post": {
+        "operationId": "validateConnection",
+        "summary": "Validate a connection",
+        "description": "Tests the connectivity for a Datasphere connection to verify credentials and reachability",
+        "parameters": [
+          {"name": "connectionId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Validation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "valid": {"type": "boolean"},
+                    "status": {"type": "string"},
+                    "message": {"type": "string"},
+                    "testedAt": {"type": "string", "format": "date-time"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Connection": {
+        "type": "object",
+        "properties": {
+          "connectionId": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "type": {"type": "string", "description": "Connection type (e.g. S4HANA, HANA, REST, JDBC, OData, SFTP, PostgreSQL, Databricks)"},
+          "spaceId": {"type": "string"},
+          "host": {"type": "string"},
+          "port": {"type": "integer"},
+          "protocol": {"type": "string", "enum": ["REST", "JDBC", "OData", "SFTP", "HTTP", "HTTPS", "other"]},
+          "status": {"type": "string", "enum": ["ACTIVE", "INACTIVE", "ERROR", "VALIDATING"]},
+          "lastValidatedAt": {"type": "string", "format": "date-time"},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "modifiedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "ConnectionCreate": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "type": {"type": "string"},
+          "spaceId": {"type": "string"},
+          "host": {"type": "string"},
+          "port": {"type": "integer"},
+          "protocol": {"type": "string"},
+          "credentials": {
+            "type": "object",
+            "description": "Authentication credentials (username/password, OAuth, certificate, API key)",
+            "properties": {
+              "type": {"type": "string", "enum": ["basic", "oauth2", "certificate", "apikey"]},
+              "username": {"type": "string"},
+              "tokenUrl": {"type": "string"},
+              "clientId": {"type": "string"}
+            }
+          },
+          "parameters": {"type": "object", "description": "Protocol-specific connection parameters"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Data Profiling",
+    "version": "1.0.0",
+    "description": "SAP Data Quality Management Data Profiling API for profiling data assets, running quality checks and enforcing data quality rules"
+  },
+  "paths": {
+    "/profiling/jobs": {
+      "post": {
+        "operationId": "createProfilingJob",
+        "summary": "Start a data profiling job",
+        "description": "Initiates a profiling job to analyze data quality dimensions (completeness, uniqueness, validity, consistency, accuracy) for a data asset",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["assetId"],
+                "properties": {
+                  "assetId": {"type": "string", "description": "ID of the data asset to profile"},
+                  "spaceId": {"type": "string", "description": "Datasphere space ID"},
+                  "dimensions": {
+                    "type": "array",
+                    "items": {"type": "string", "enum": ["COMPLETENESS", "UNIQUENESS", "VALIDITY", "CONSISTENCY", "ACCURACY", "TIMELINESS"]},
+                    "description": "Quality dimensions to evaluate"
+                  },
+                  "sampleSize": {"type": "integer", "description": "Number of rows to sample (0 = full scan)"},
+                  "rules": {
+                    "type": "array",
+                    "items": {"$ref": "#/components/schemas/QualityRule"},
+                    "description": "Custom quality rules to evaluate"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Profiling job created",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ProfilingJob"}
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listProfilingJobs",
+        "summary": "List profiling jobs",
+        "description": "Returns a list of all data profiling jobs with their status",
+        "parameters": [
+          {"name": "assetId", "in": "query", "schema": {"type": "string"}, "description": "Filter by asset ID"},
+          {"name": "status", "in": "query", "schema": {"type": "string", "enum": ["PENDING", "RUNNING", "COMPLETED", "FAILED"]}}
+        ],
+        "responses": {
+          "200": {
+            "description": "List of profiling jobs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/ProfilingJob"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profiling/jobs/{jobId}": {
+      "get": {
+        "operationId": "getProfilingJob",
+        "summary": "Get profiling job status and results",
+        "description": "Returns the status and results of a specific profiling job",
+        "parameters": [
+          {"name": "jobId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Profiling job details",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ProfilingJob"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profiling/jobs/{jobId}/results": {
+      "get": {
+        "operationId": "getProfilingResults",
+        "summary": "Get detailed profiling results",
+        "description": "Returns detailed quality metrics and rule evaluation results for a completed profiling job",
+        "parameters": [
+          {"name": "jobId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Profiling results",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ProfilingResults"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/quality/rules": {
+      "get": {
+        "operationId": "listQualityRules",
+        "summary": "List quality rules",
+        "description": "Returns all defined data quality rules",
+        "parameters": [
+          {"name": "assetId", "in": "query", "schema": {"type": "string"}, "description": "Filter by asset ID"},
+          {"name": "dimension", "in": "query", "schema": {"type": "string"}, "description": "Filter by quality dimension"}
+        ],
+        "responses": {
+          "200": {
+            "description": "List of quality rules",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/QualityRule"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createQualityRule",
+        "summary": "Create a data quality rule",
+        "description": "Defines a new data quality rule for enforcement during profiling and deployment gates",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {"$ref": "#/components/schemas/QualityRule"}
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created quality rule",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/QualityRule"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/quality/rules/{ruleId}": {
+      "get": {
+        "operationId": "getQualityRule",
+        "summary": "Get a quality rule by ID",
+        "parameters": [
+          {"name": "ruleId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Quality rule",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/QualityRule"}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteQualityRule",
+        "summary": "Delete a quality rule",
+        "parameters": [
+          {"name": "ruleId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "204": {"description": "Rule deleted"}
+        }
+      }
+    },
+    "/quality/scores/{assetId}": {
+      "get": {
+        "operationId": "getQualityScore",
+        "summary": "Get current quality score for an asset",
+        "description": "Returns the latest computed quality score and dimension breakdown for a data asset",
+        "parameters": [
+          {"name": "assetId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Quality score",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/QualityScore"}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "QualityRule": {
+        "type": "object",
+        "properties": {
+          "ruleId": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "assetId": {"type": "string"},
+          "dimension": {"type": "string", "enum": ["COMPLETENESS", "UNIQUENESS", "VALIDITY", "CONSISTENCY", "ACCURACY", "TIMELINESS"]},
+          "severity": {"type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"]},
+          "condition": {"type": "string", "description": "SQL-based condition expression"},
+          "column": {"type": "string", "description": "Column to evaluate (optional)"},
+          "threshold": {"type": "number", "description": "Acceptable failure rate (0-100%)"},
+          "enabled": {"type": "boolean"}
+        }
+      },
+      "ProfilingJob": {
+        "type": "object",
+        "properties": {
+          "jobId": {"type": "string"},
+          "assetId": {"type": "string"},
+          "status": {"type": "string", "enum": ["PENDING", "RUNNING", "COMPLETED", "FAILED"]},
+          "startedAt": {"type": "string", "format": "date-time"},
+          "completedAt": {"type": "string", "format": "date-time"},
+          "rowsScanned": {"type": "integer"},
+          "overallScore": {"type": "number", "description": "Overall quality score 0-100"},
+          "passedRules": {"type": "integer"},
+          "failedRules": {"type": "integer"},
+          "criticalViolations": {"type": "integer"}
+        }
+      },
+      "ProfilingResults": {
+        "type": "object",
+        "properties": {
+          "jobId": {"type": "string"},
+          "assetId": {"type": "string"},
+          "overallScore": {"type": "number"},
+          "dimensions": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "score": {"type": "number"},
+                "details": {"type": "string"}
+              }
+            }
+          },
+          "ruleResults": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ruleId": {"type": "string"},
+                "ruleName": {"type": "string"},
+                "severity": {"type": "string"},
+                "passed": {"type": "boolean"},
+                "failureRate": {"type": "number"},
+                "failedRows": {"type": "integer"},
+                "details": {"type": "string"}
+              }
+            }
+          },
+          "columnStats": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "column": {"type": "string"},
+                "nullCount": {"type": "integer"},
+                "distinctCount": {"type": "integer"},
+                "minValue": {"type": "string"},
+                "maxValue": {"type": "string"}
+              }
+            }
+          }
+        }
+      },
+      "QualityScore": {
+        "type": "object",
+        "properties": {
+          "assetId": {"type": "string"},
+          "overallScore": {"type": "number"},
+          "completenessScore": {"type": "number"},
+          "uniquenessScore": {"type": "number"},
+          "validityScore": {"type": "number"},
+          "consistencyScore": {"type": "number"},
+          "computedAt": {"type": "string", "format": "date-time"},
+          "criticalViolations": {"type": "integer"},
+          "gatePassed": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Catalog",
+    "version": "1.0.0",
+    "description": "SAP Datasphere Catalog API for discovering spaces, objects (views, tables, data flows, analytic models) and data product metadata"
+  },
+  "paths": {
+    "/catalog/spaces": {
+      "get": {
+        "operationId": "listSpaces",
+        "summary": "List all Datasphere spaces",
+        "description": "Returns a list of all Datasphere spaces the caller has access to, including their status and configuration",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}, "description": "Maximum number of spaces to return"},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}, "description": "Number of spaces to skip"},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}, "description": "OData filter expression"}
+        ],
+        "responses": {
+          "200": {
+            "description": "List of spaces",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/Space"}},
+                    "@odata.count": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/spaces/{spaceId}": {
+      "get": {
+        "operationId": "getSpace",
+        "summary": "Get a specific Datasphere space",
+        "description": "Returns detailed information about a Datasphere space including its objects, members and disk usage",
+        "parameters": [
+          {"name": "spaceId", "in": "path", "required": true, "schema": {"type": "string"}, "description": "Space ID"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Space details",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Space"}}}
+          }
+        }
+      }
+    },
+    "/catalog/spaces/{spaceId}/objects": {
+      "get": {
+        "operationId": "listSpaceObjects",
+        "summary": "List objects in a space",
+        "description": "Returns all objects (views, tables, data flows, analytic models, etc.) within a specific Datasphere space",
+        "parameters": [
+          {"name": "spaceId", "in": "path", "required": true, "schema": {"type": "string"}, "description": "Space ID"},
+          {"name": "type", "in": "query", "schema": {"type": "string"}, "description": "Filter by object type (VIEW, TABLE, DATAFLOW, ANALYTICMODEL, ENTITYRELATIONSHIPMODEL)"},
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Space objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/SpaceObject"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/spaces/{spaceId}/objects/{objectId}": {
+      "get": {
+        "operationId": "getSpaceObject",
+        "summary": "Get a specific object in a space",
+        "description": "Returns detailed metadata for a specific object within a Datasphere space",
+        "parameters": [
+          {"name": "spaceId", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "objectId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Object details",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SpaceObject"}}}
+          }
+        }
+      }
+    },
+    "/catalog/dataProducts": {
+      "get": {
+        "operationId": "listCatalogDataProducts",
+        "summary": "List data products in the catalog",
+        "description": "Returns all data products registered in the Datasphere catalog",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}},
+          {"name": "$search", "in": "query", "schema": {"type": "string"}, "description": "Full-text search"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Data products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/CatalogDataProduct"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/dataProducts/{dataProductId}": {
+      "get": {
+        "operationId": "getCatalogDataProduct",
+        "summary": "Get a specific data product from the catalog",
+        "description": "Returns detailed information about a specific data product in the catalog",
+        "parameters": [
+          {"name": "dataProductId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Data product details",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CatalogDataProduct"}}}
+          }
+        }
+      }
+    },
+    "/catalog/search": {
+      "get": {
+        "operationId": "searchCatalog",
+        "summary": "Full-text search across all catalog entities",
+        "description": "Searches across all catalog entity types (spaces, objects, data products) using full-text search",
+        "parameters": [
+          {"name": "q", "in": "query", "required": true, "schema": {"type": "string"}, "description": "Search term"},
+          {"name": "type", "in": "query", "schema": {"type": "string"}, "description": "Restrict to entity type"},
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"type": "object"}},
+                    "count": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Space": {
+        "type": "object",
+        "properties": {
+          "spaceId": {"type": "string"},
+          "spaceName": {"type": "string"},
+          "description": {"type": "string"},
+          "status": {"type": "string", "enum": ["ACTIVE", "LOCKED", "INACTIVE"]},
+          "diskConsumption": {"type": "number"},
+          "diskLimit": {"type": "number"},
+          "memberCount": {"type": "integer"},
+          "objectCount": {"type": "integer"},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "modifiedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "SpaceObject": {
+        "type": "object",
+        "properties": {
+          "objectId": {"type": "string"},
+          "technicalName": {"type": "string"},
+          "businessName": {"type": "string"},
+          "type": {"type": "string"},
+          "spaceId": {"type": "string"},
+          "description": {"type": "string"},
+          "status": {"type": "string"},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "modifiedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "CatalogDataProduct": {
+        "type": "object",
+        "properties": {
+          "dataProductId": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "provider": {"type": "string"},
+          "category": {"type": "string"},
+          "status": {"type": "string"},
+          "version": {"type": "string"},
+          "tags": {"type": "array", "items": {"type": "string"}},
+          "createdAt": {"type": "string", "format": "date-time"}
+        }
+      }
+    }
+  }
+}

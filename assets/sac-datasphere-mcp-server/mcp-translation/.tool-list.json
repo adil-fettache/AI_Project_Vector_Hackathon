@@ -1,0 +1,1 @@
+["listSacConnections","createSacConnection","getSacConnection","deleteSacConnection","validateSacConnection","listSacModels","getSacModel","listSacStories","getSacStory","publishSacStory","createDataImportJob","getDataImportJobStatus"]

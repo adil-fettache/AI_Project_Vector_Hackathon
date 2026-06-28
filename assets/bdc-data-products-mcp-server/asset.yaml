@@ -1,0 +1,16 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: bdc-data-products-mcp-server
+  version: "1.0.0"
+  description: "MCP server for SAP Business Data Cloud Data Products API — discover, activate and manage SAP-managed data products"
+
+type: mcp-server
+
+destinations:
+  - name: DATASPHERE
+    description: "SAP Datasphere / BDC tenant REST API base URL"
+
+mcp:
+  translationFile: mcp-translation/translation.json

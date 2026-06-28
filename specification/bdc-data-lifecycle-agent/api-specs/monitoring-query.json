@@ -1,0 +1,217 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Monitoring Query (Cloud Edition)",
+    "version": "1.0.0",
+    "description": "SAP Datasphere Monitoring Query API for querying monitoring data, task run logs and system health metrics"
+  },
+  "paths": {
+    "/monitoring/runs": {
+      "get": {
+        "operationId": "listTaskRuns",
+        "summary": "List task runs",
+        "description": "Returns a list of task run history entries with status, duration and error information",
+        "parameters": [
+          {"name": "spaceId", "in": "query", "schema": {"type": "string"}, "description": "Filter by Datasphere space ID"},
+          {"name": "objectId", "in": "query", "schema": {"type": "string"}, "description": "Filter by object/artifact ID"},
+          {"name": "status", "in": "query", "schema": {"type": "string", "enum": ["RUNNING", "COMPLETED", "FAILED", "CANCELLED"]}, "description": "Filter by run status"},
+          {"name": "fromDate", "in": "query", "schema": {"type": "string", "format": "date-time"}, "description": "Filter runs from this date"},
+          {"name": "toDate", "in": "query", "schema": {"type": "string", "format": "date-time"}, "description": "Filter runs until this date"},
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}, "description": "Maximum number of records"},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}, "description": "Records to skip"}
+        ],
+        "responses": {
+          "200": {
+            "description": "List of task runs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {"$ref": "#/components/schemas/TaskRun"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/runs/{runId}": {
+      "get": {
+        "operationId": "getTaskRun",
+        "summary": "Get details of a specific task run",
+        "description": "Returns detailed information about a specific task run including logs, duration and error details",
+        "parameters": [
+          {"name": "runId", "in": "path", "required": true, "schema": {"type": "string"}, "description": "Task run ID"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Task run details",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/TaskRun"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/runs/{runId}/logs": {
+      "get": {
+        "operationId": "getTaskRunLogs",
+        "summary": "Get logs for a task run",
+        "description": "Returns detailed execution logs for a specific task run",
+        "parameters": [
+          {"name": "runId", "in": "path", "required": true, "schema": {"type": "string"}, "description": "Task run ID"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Task run logs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "logs": {"type": "array", "items": {"$ref": "#/components/schemas/LogEntry"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/health": {
+      "get": {
+        "operationId": "getSystemHealth",
+        "summary": "Get overall system health",
+        "description": "Returns the overall health status of the Datasphere instance including CPU, memory, and service availability",
+        "responses": {
+          "200": {
+            "description": "System health summary",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/SystemHealth"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/spaces/{spaceId}/health": {
+      "get": {
+        "operationId": "getSpaceHealth",
+        "summary": "Get health metrics for a specific space",
+        "description": "Returns health and performance metrics for a specific Datasphere space",
+        "parameters": [
+          {"name": "spaceId", "in": "path", "required": true, "schema": {"type": "string"}, "description": "Space ID"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Space health metrics",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/SpaceHealth"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/monitoring/metrics": {
+      "get": {
+        "operationId": "queryMetrics",
+        "summary": "Query performance metrics",
+        "description": "Returns time-series performance metrics for Datasphere objects and tasks",
+        "parameters": [
+          {"name": "metric", "in": "query", "required": true, "schema": {"type": "string"}, "description": "Metric name (e.g. CPU_USAGE, MEMORY, ROW_COUNT)"},
+          {"name": "spaceId", "in": "query", "schema": {"type": "string"}, "description": "Space ID"},
+          {"name": "objectId", "in": "query", "schema": {"type": "string"}, "description": "Object ID"},
+          {"name": "from", "in": "query", "schema": {"type": "string", "format": "date-time"}, "description": "Start time"},
+          {"name": "to", "in": "query", "schema": {"type": "string", "format": "date-time"}, "description": "End time"},
+          {"name": "granularity", "in": "query", "schema": {"type": "string", "enum": ["MINUTE", "HOUR", "DAY"]}, "description": "Aggregation granularity"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Metrics data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "metric": {"type": "string"},
+                    "dataPoints": {"type": "array", "items": {"$ref": "#/components/schemas/MetricDataPoint"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TaskRun": {
+        "type": "object",
+        "properties": {
+          "runId": {"type": "string"},
+          "spaceId": {"type": "string"},
+          "objectId": {"type": "string"},
+          "objectName": {"type": "string"},
+          "objectType": {"type": "string"},
+          "status": {"type": "string", "enum": ["RUNNING", "COMPLETED", "FAILED", "CANCELLED"]},
+          "startTime": {"type": "string", "format": "date-time"},
+          "endTime": {"type": "string", "format": "date-time"},
+          "durationMs": {"type": "integer"},
+          "rowsProcessed": {"type": "integer"},
+          "errorCode": {"type": "string"},
+          "errorMessage": {"type": "string"}
+        }
+      },
+      "LogEntry": {
+        "type": "object",
+        "properties": {
+          "timestamp": {"type": "string", "format": "date-time"},
+          "level": {"type": "string", "enum": ["INFO", "WARN", "ERROR", "DEBUG"]},
+          "message": {"type": "string"},
+          "component": {"type": "string"}
+        }
+      },
+      "SystemHealth": {
+        "type": "object",
+        "properties": {
+          "status": {"type": "string", "enum": ["HEALTHY", "DEGRADED", "UNHEALTHY"]},
+          "cpuUsagePercent": {"type": "number"},
+          "memoryUsagePercent": {"type": "number"},
+          "storageUsagePercent": {"type": "number"},
+          "activeConnections": {"type": "integer"},
+          "checkedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "SpaceHealth": {
+        "type": "object",
+        "properties": {
+          "spaceId": {"type": "string"},
+          "status": {"type": "string", "enum": ["HEALTHY", "DEGRADED", "UNHEALTHY"]},
+          "diskUsagePercent": {"type": "number"},
+          "activeJobs": {"type": "integer"},
+          "failedJobsLast24h": {"type": "integer"},
+          "lastSuccessfulRun": {"type": "string", "format": "date-time"}
+        }
+      },
+      "MetricDataPoint": {
+        "type": "object",
+        "properties": {
+          "timestamp": {"type": "string", "format": "date-time"},
+          "value": {"type": "number"},
+          "unit": {"type": "string"}
+        }
+      }
+    }
+  }
+}

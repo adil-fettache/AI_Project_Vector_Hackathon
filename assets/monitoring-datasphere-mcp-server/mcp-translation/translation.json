@@ -1,0 +1,176 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:MonitoringQuery:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/monitoring_query_cloud_edition",
+    "title": "monitoring_query_cloud_edition",
+    "version": "1.0.0",
+    "description": "MCP server for the monitoring_query_cloud_edition service."
+  },
+  "tools": [
+    {
+      "name": "listTaskRuns",
+      "title": "listTaskRuns",
+      "description": "Returns a list of task run history entries with status, duration and error information",
+      "openApiType": {
+        "operationId": "listTaskRuns",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "Filter by Datasphere space ID",
+            "in": "query",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "objectId",
+            "description": "Filter by object/artifact ID",
+            "in": "query",
+            "newParameterName": "objectid"
+          },
+          {
+            "name": "status",
+            "description": "",
+            "in": "query",
+            "newParameterName": "status"
+          },
+          {
+            "name": "fromDate",
+            "description": "",
+            "in": "query",
+            "newParameterName": "fromdate"
+          },
+          {
+            "name": "toDate",
+            "description": "",
+            "in": "query",
+            "newParameterName": "todate"
+          },
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "$skip",
+            "description": "",
+            "in": "query",
+            "newParameterName": "skip"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getTaskRun",
+      "title": "getTaskRun",
+      "description": "Returns detailed information about a specific task run including logs, duration and error details",
+      "openApiType": {
+        "operationId": "getTaskRun",
+        "parameters": [
+          {
+            "name": "runId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "runid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getTaskRunLogs",
+      "title": "getTaskRunLogs",
+      "description": "Returns detailed execution logs for a specific task run",
+      "openApiType": {
+        "operationId": "getTaskRunLogs",
+        "parameters": [
+          {
+            "name": "runId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "runid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getSystemHealth",
+      "title": "getSystemHealth",
+      "description": "Returns the overall health status of the Datasphere instance including CPU, memory and service availability",
+      "openApiType": {
+        "operationId": "getSystemHealth",
+        "parameters": [],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getSpaceHealth",
+      "title": "getSpaceHealth",
+      "description": "Returns health and performance metrics for a specific Datasphere space",
+      "openApiType": {
+        "operationId": "getSpaceHealth",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "spaceid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "queryMetrics",
+      "title": "queryMetrics",
+      "description": "Returns time-series performance metrics for Datasphere objects and tasks",
+      "openApiType": {
+        "operationId": "queryMetrics",
+        "parameters": [
+          {
+            "name": "metric",
+            "description": "",
+            "in": "query",
+            "newParameterName": "metric"
+          },
+          {
+            "name": "spaceId",
+            "description": "",
+            "in": "query",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "objectId",
+            "description": "",
+            "in": "query",
+            "newParameterName": "objectid"
+          },
+          {
+            "name": "from",
+            "description": "",
+            "in": "query",
+            "newParameterName": "from"
+          },
+          {
+            "name": "to",
+            "description": "",
+            "in": "query",
+            "newParameterName": "to"
+          },
+          {
+            "name": "granularity",
+            "description": "",
+            "in": "query",
+            "newParameterName": "granularity"
+          }
+        ],
+        "requestBody": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.dqm:apiResource:DataProfiling:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/data_profiling",
+    "title": "data_profiling",
+    "version": "1.0.0",
+    "description": "MCP server for the data_profiling service."
+  },
+  "tools": [
+    {
+      "name": "listProfilingJobs",
+      "title": "listProfilingJobs",
+      "description": "Returns a list of all data profiling jobs with their status",
+      "openApiType": {
+        "operationId": "listProfilingJobs",
+        "parameters": [
+          {
+            "name": "assetId",
+            "description": "",
+            "in": "query",
+            "newParameterName": "assetid"
+          },
+          {
+            "name": "status",
+            "description": "",
+            "in": "query",
+            "newParameterName": "status"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "createProfilingJob",
+      "title": "createProfilingJob",
+      "description": "Initiates a profiling job to analyze data quality dimensions (completeness, uniqueness, validity, consistency, accuracy) for a data asset",
+      "openApiType": {
+        "operationId": "createProfilingJob",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "getProfilingJob",
+      "title": "getProfilingJob",
+      "description": "Get profiling job status and results",
+      "openApiType": {
+        "operationId": "getProfilingJob",
+        "parameters": [
+          {
+            "name": "jobId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "jobid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getProfilingResults",
+      "title": "getProfilingResults",
+      "description": "Returns detailed quality metrics and rule evaluation results for a completed profiling job",
+      "openApiType": {
+        "operationId": "getProfilingResults",
+        "parameters": [
+          {
+            "name": "jobId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "jobid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "listQualityRules",
+      "title": "listQualityRules",
+      "description": "Returns all defined data quality rules",
+      "openApiType": {
+        "operationId": "listQualityRules",
+        "parameters": [
+          {
+            "name": "assetId",
+            "description": "",
+            "in": "query",
+            "newParameterName": "assetid"
+          },
+          {
+            "name": "dimension",
+            "description": "",
+            "in": "query",
+            "newParameterName": "dimension"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "createQualityRule",
+      "title": "createQualityRule",
+      "description": "Defines a new data quality rule for enforcement during profiling and deployment gates",
+      "openApiType": {
+        "operationId": "createQualityRule",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "getQualityRule",
+      "title": "getQualityRule",
+      "description": "Get a quality rule by ID",
+      "openApiType": {
+        "operationId": "getQualityRule",
+        "parameters": [
+          {
+            "name": "ruleId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "ruleid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "deleteQualityRule",
+      "title": "deleteQualityRule",
+      "description": "Delete a quality rule",
+      "openApiType": {
+        "operationId": "deleteQualityRule",
+        "parameters": [
+          {
+            "name": "ruleId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "ruleid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getQualityScore",
+      "title": "getQualityScore",
+      "description": "Returns the latest computed quality score and dimension breakdown for a data asset",
+      "openApiType": {
+        "operationId": "getQualityScore",
+        "parameters": [
+          {
+            "name": "assetId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "assetid"
+          }
+        ],
+        "requestBody": {}
+      }
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:MetadataManagement:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/metadata_management_cloud_edition",
+    "title": "metadata_management_cloud_edition",
+    "version": "1.0.0",
+    "description": "MCP server for the metadata_management_cloud_edition service."
+  },
+  "tools": [
+    {
+      "name": "searchCatalogAssets",
+      "title": "searchCatalogAssets",
+      "description": "Search for data assets in the catalog with full-text search and filter support",
+      "openApiType": {
+        "operationId": "searchCatalogAssets",
+        "parameters": [
+          {
+            "name": "q",
+            "description": "Full-text search query",
+            "in": "query",
+            "newParameterName": "q"
+          },
+          {
+            "name": "type",
+            "description": "Asset type filter (e.g. VIEW, TABLE, DATAFLOW)",
+            "in": "query",
+            "newParameterName": "type"
+          },
+          {
+            "name": "spaceId",
+            "description": "",
+            "in": "query",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "$skip",
+            "description": "",
+            "in": "query",
+            "newParameterName": "skip"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getCatalogAsset",
+      "title": "getCatalogAsset",
+      "description": "Returns full metadata for a specific catalog asset including business description, tags, lineage and glossary terms",
+      "openApiType": {
+        "operationId": "getCatalogAsset",
+        "parameters": [
+          {
+            "name": "assetId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "assetid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "updateCatalogAssetMetadata",
+      "title": "updateCatalogAssetMetadata",
+      "description": "Updates business metadata fields (description, tags, glossary terms, custom attributes) for a catalog asset",
+      "openApiType": {
+        "operationId": "updateCatalogAssetMetadata",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "assetId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "assetid"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "getAssetLineage",
+      "title": "getAssetLineage",
+      "description": "Returns the data lineage graph showing upstream sources and downstream consumers",
+      "openApiType": {
+        "operationId": "getAssetLineage",
+        "parameters": [
+          {
+            "name": "assetId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "assetid"
+          },
+          {
+            "name": "direction",
+            "description": "",
+            "in": "query",
+            "newParameterName": "direction"
+          },
+          {
+            "name": "depth",
+            "description": "",
+            "in": "query",
+            "newParameterName": "depth"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "listGlossaryTerms",
+      "title": "listGlossaryTerms",
+      "description": "Returns all business glossary terms available for tagging data assets",
+      "openApiType": {
+        "operationId": "listGlossaryTerms",
+        "parameters": [],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "createGlossaryTerm",
+      "title": "createGlossaryTerm",
+      "description": "Creates a new business glossary term in the catalog",
+      "openApiType": {
+        "operationId": "createGlossaryTerm",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "listTags",
+      "title": "listTags",
+      "description": "Returns all available tags that can be applied to catalog assets",
+      "openApiType": {
+        "operationId": "listTags",
+        "parameters": [],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "setAssetTags",
+      "title": "setAssetTags",
+      "description": "Replaces all tags on a catalog asset with the provided set",
+      "openApiType": {
+        "operationId": "setAssetTags",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "assetId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "assetid"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    }
+  ]
+}

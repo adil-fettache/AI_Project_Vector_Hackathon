@@ -1,0 +1,230 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.sac:apiResource:SACIntegration:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/sap_analytics_cloud_integration",
+    "title": "sap_analytics_cloud_integration",
+    "version": "1.0.0",
+    "description": "MCP server for the sap_analytics_cloud_integration service."
+  },
+  "tools": [
+    {
+      "name": "listSacConnections",
+      "title": "listSacConnections",
+      "description": "Returns all configured data connections in SAP Analytics Cloud",
+      "openApiType": {
+        "operationId": "listSacConnections",
+        "parameters": [],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "createSacConnection",
+      "title": "createSacConnection",
+      "description": "Creates a new data connection in SAP Analytics Cloud pointing to a Datasphere model",
+      "openApiType": {
+        "operationId": "createSacConnection",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "getSacConnection",
+      "title": "getSacConnection",
+      "description": "Get a SAC connection",
+      "openApiType": {
+        "operationId": "getSacConnection",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "connectionid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "deleteSacConnection",
+      "title": "deleteSacConnection",
+      "description": "Delete a SAC connection",
+      "openApiType": {
+        "operationId": "deleteSacConnection",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "connectionid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "validateSacConnection",
+      "title": "validateSacConnection",
+      "description": "Tests connectivity for a SAC data connection",
+      "openApiType": {
+        "operationId": "validateSacConnection",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "connectionid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "listSacModels",
+      "title": "listSacModels",
+      "description": "Returns all analytic models in SAP Analytics Cloud",
+      "openApiType": {
+        "operationId": "listSacModels",
+        "parameters": [
+          {
+            "name": "$filter",
+            "description": "",
+            "in": "query",
+            "newParameterName": "filter"
+          },
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getSacModel",
+      "title": "getSacModel",
+      "description": "Get a SAC model",
+      "openApiType": {
+        "operationId": "getSacModel",
+        "parameters": [
+          {
+            "name": "modelId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "modelid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "listSacStories",
+      "title": "listSacStories",
+      "description": "Returns all SAP Analytics Cloud stories (dashboards and reports)",
+      "openApiType": {
+        "operationId": "listSacStories",
+        "parameters": [
+          {
+            "name": "$filter",
+            "description": "",
+            "in": "query",
+            "newParameterName": "filter"
+          },
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getSacStory",
+      "title": "getSacStory",
+      "description": "Get a SAC story",
+      "openApiType": {
+        "operationId": "getSacStory",
+        "parameters": [
+          {
+            "name": "storyId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "storyid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "publishSacStory",
+      "title": "publishSacStory",
+      "description": "Publishes a SAC story making it available to end users",
+      "openApiType": {
+        "operationId": "publishSacStory",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          },
+          {
+            "name": "storyId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "storyid"
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "createDataImportJob",
+      "title": "createDataImportJob",
+      "description": "Creates a data import job to pull data from a Datasphere model or view into SAC",
+      "openApiType": {
+        "operationId": "createDataImportJob",
+        "parameters": [
+          {
+            "name": "body",
+            "description": ""
+          }
+        ],
+        "requestBody": {
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "name": "getDataImportJobStatus",
+      "title": "getDataImportJobStatus",
+      "description": "Get data import job status",
+      "openApiType": {
+        "operationId": "getDataImportJobStatus",
+        "parameters": [
+          {
+            "name": "jobId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "jobid"
+          }
+        ],
+        "requestBody": {}
+      }
+    }
+  ]
+}

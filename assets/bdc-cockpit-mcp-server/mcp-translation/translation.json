@@ -1,0 +1,73 @@
+{
+  "mcpTranslationVersion": "1.0",
+  "target": {
+    "ordId": "customer.mcpbuilder.bdc:apiResource:BdcCockpitAPI:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "bdc-cockpit-mcp-server",
+    "description": "MCP server for BDC Cockpit — register, publish, and manage the lifecycle of Data Products in SAP Business Data Cloud"
+  },
+  "tools": [
+    {
+      "name": "listBdcDataProducts",
+      "title": "List BDC Data Products",
+      "description": "List all Data Products registered in BDC Cockpit, including SAP-managed and custom products. Use to check what already exists before creating new ones.",
+      "openApiType": {
+        "operationId": "listBdcDataProducts",
+        "method": "GET",
+        "path": "/api/v1/dataProducts"
+      }
+    },
+    {
+      "name": "registerDataProduct",
+      "title": "Register Data Product",
+      "description": "Register a new custom Data Product in BDC Cockpit. Supports HDL-backed (DPE SDK), Datasphere-backed, and external Data Products. Returns a DRAFT product ready for publishing.",
+      "openApiType": {
+        "operationId": "registerDataProduct",
+        "method": "POST",
+        "path": "/api/v1/dataProducts"
+      }
+    },
+    {
+      "name": "getBdcDataProduct",
+      "title": "Get BDC Data Product",
+      "description": "Get full details of a specific BDC Data Product by ID.",
+      "openApiType": {
+        "operationId": "getBdcDataProduct",
+        "method": "GET",
+        "path": "/api/v1/dataProducts/{id}"
+      }
+    },
+    {
+      "name": "updateDataProduct",
+      "title": "Update Data Product",
+      "description": "Update metadata (description, owner, tags) of a BDC Data Product.",
+      "openApiType": {
+        "operationId": "updateDataProduct",
+        "method": "PATCH",
+        "path": "/api/v1/dataProducts/{id}"
+      }
+    },
+    {
+      "name": "publishDataProduct",
+      "title": "Publish Data Product",
+      "description": "Publish a DRAFT Data Product to the BDC catalog, making it discoverable and consumable by analytics and data consumers.",
+      "openApiType": {
+        "operationId": "publishDataProduct",
+        "method": "POST",
+        "path": "/api/v1/dataProducts/{id}/publish"
+      }
+    },
+    {
+      "name": "getDataProductStatus",
+      "title": "Get Data Product Status",
+      "description": "Check the current lifecycle status of a BDC Data Product: DRAFT, PUBLISHED, DEPRECATED, or ERROR.",
+      "openApiType": {
+        "operationId": "getDataProductStatus",
+        "method": "GET",
+        "path": "/api/v1/dataProducts/{id}/status"
+      }
+    }
+  ]
+}

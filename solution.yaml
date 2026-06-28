@@ -1,0 +1,23 @@
+apiVersion: solution.sap/v1
+kind: Solution
+
+metadata:
+  name: data-product-lifecycle-agent-3eafb
+  version: "2.3.0"
+  description: "Autonomous Data Product Lifecycle Agent for SAP Business Data Cloud (BDC). Full landscape scope: BDC, Datasphere, Databricks, HANA Data Lake (HDL), BDC Cockpit, SAP sources (S/4HANA, SuccessFactors, Ariba, Fieldglass, Concur), and non-SAP sources."
+
+assets:
+  # Agent
+  - ref: ./assets/bdc-data-lifecycle-agent/asset.yaml
+  # MCP Servers — Datasphere (catalog, connections, tasks, monitoring, metadata, DQM, SAC)
+  - ref: ./assets/catalog-datasphere-mcp-server/asset.yaml
+  - ref: ./assets/connections-datasphere-mcp-server/asset.yaml
+  - ref: ./assets/tasks-datasphere-mcp-server/asset.yaml
+  - ref: ./assets/bdc-data-products-mcp-server/asset.yaml
+  - ref: ./assets/monitoring-datasphere-mcp-server/asset.yaml
+  - ref: ./assets/metadata-management-mcp-server/asset.yaml
+  - ref: ./assets/dqm-datasphere-mcp-server/asset.yaml
+  - ref: ./assets/sac-datasphere-mcp-server/asset.yaml
+  # MCP Servers — new (Databricks, BDC Cockpit)
+  - ref: ./assets/databricks-mcp-server/asset.yaml
+  - ref: ./assets/bdc-cockpit-mcp-server/asset.yaml

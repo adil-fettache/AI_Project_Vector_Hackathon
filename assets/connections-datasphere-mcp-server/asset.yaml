@@ -1,0 +1,16 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: connections-datasphere-mcp-server
+  version: "1.0.0"
+  description: "MCP server for SAP Datasphere Connections API — manage connections to SAP and non-SAP data sources"
+
+type: mcp-server
+
+destinations:
+  - name: DATASPHERE
+    description: "SAP Datasphere / BDC tenant REST API base URL"
+
+mcp:
+  translationFile: mcp-translation/translation.json

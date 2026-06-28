@@ -1,0 +1,206 @@
+{
+  "mcpTranslationVersion": "0.1",
+  "target": {
+    "ordId": "sap.datasphere:apiResource:Catalog:v1",
+    "type": "openapi-v3"
+  },
+  "serverInfo": {
+    "name": "sap.mcp/catalog",
+    "title": "catalog",
+    "version": "1.0.0",
+    "description": "MCP server for the catalog service."
+  },
+  "tools": [
+    {
+      "name": "listSpaces",
+      "title": "listSpaces",
+      "description": "Returns a list of all Datasphere spaces the caller has access to, including their status and configuration",
+      "openApiType": {
+        "operationId": "listSpaces",
+        "parameters": [
+          {
+            "name": "$top",
+            "description": "Maximum number of spaces to return",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "$skip",
+            "description": "Number of spaces to skip",
+            "in": "query",
+            "newParameterName": "skip"
+          },
+          {
+            "name": "$filter",
+            "description": "OData filter expression",
+            "in": "query",
+            "newParameterName": "filter"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getSpace",
+      "title": "getSpace",
+      "description": "Returns detailed information about a Datasphere space including its objects, members and disk usage",
+      "openApiType": {
+        "operationId": "getSpace",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "Space ID",
+            "in": "path",
+            "newParameterName": "spaceid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "listSpaceObjects",
+      "title": "listSpaceObjects",
+      "description": "Returns all objects (views, tables, data flows, analytic models, etc.) within a specific Datasphere space",
+      "openApiType": {
+        "operationId": "listSpaceObjects",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "Space ID",
+            "in": "path",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "type",
+            "description": "Filter by object type (VIEW, TABLE, DATAFLOW, ANALYTICMODEL, ENTITYRELATIONSHIPMODEL)",
+            "in": "query",
+            "newParameterName": "type"
+          },
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "$skip",
+            "description": "",
+            "in": "query",
+            "newParameterName": "skip"
+          },
+          {
+            "name": "$filter",
+            "description": "",
+            "in": "query",
+            "newParameterName": "filter"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getSpaceObject",
+      "title": "getSpaceObject",
+      "description": "Returns detailed metadata for a specific object within a Datasphere space",
+      "openApiType": {
+        "operationId": "getSpaceObject",
+        "parameters": [
+          {
+            "name": "spaceId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "spaceid"
+          },
+          {
+            "name": "objectId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "objectid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "listCatalogDataProducts",
+      "title": "listCatalogDataProducts",
+      "description": "Returns all data products registered in the Datasphere catalog",
+      "openApiType": {
+        "operationId": "listCatalogDataProducts",
+        "parameters": [
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          },
+          {
+            "name": "$skip",
+            "description": "",
+            "in": "query",
+            "newParameterName": "skip"
+          },
+          {
+            "name": "$filter",
+            "description": "",
+            "in": "query",
+            "newParameterName": "filter"
+          },
+          {
+            "name": "$search",
+            "description": "Full-text search",
+            "in": "query",
+            "newParameterName": "search"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "getCatalogDataProduct",
+      "title": "getCatalogDataProduct",
+      "description": "Returns detailed information about a specific data product in the catalog",
+      "openApiType": {
+        "operationId": "getCatalogDataProduct",
+        "parameters": [
+          {
+            "name": "dataProductId",
+            "description": "",
+            "in": "path",
+            "newParameterName": "dataproductid"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    {
+      "name": "searchCatalog",
+      "title": "searchCatalog",
+      "description": "Searches across all catalog entity types (spaces, objects, data products) using full-text search",
+      "openApiType": {
+        "operationId": "searchCatalog",
+        "parameters": [
+          {
+            "name": "q",
+            "description": "Search term",
+            "in": "query",
+            "newParameterName": "q"
+          },
+          {
+            "name": "type",
+            "description": "Restrict to entity type",
+            "in": "query",
+            "newParameterName": "type"
+          },
+          {
+            "name": "$top",
+            "description": "",
+            "in": "query",
+            "newParameterName": "top"
+          }
+        ],
+        "requestBody": {}
+      }
+    }
+  ]
+}

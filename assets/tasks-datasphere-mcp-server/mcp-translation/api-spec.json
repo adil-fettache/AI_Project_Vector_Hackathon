@@ -1,0 +1,174 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Tasks",
+    "version": "1.0.0",
+    "description": "SAP Datasphere Tasks API for managing and executing task chains, data flows and scheduled jobs"
+  },
+  "paths": {
+    "/tasks": {
+      "get": {
+        "operationId": "listTasks",
+        "summary": "List all tasks",
+        "description": "Returns all tasks (task chains, scheduled runs) in Datasphere",
+        "parameters": [
+          {"name": "spaceId", "in": "query", "schema": {"type": "string"}, "description": "Filter by space ID"},
+          {"name": "type", "in": "query", "schema": {"type": "string"}, "description": "Filter by task type (TASK_CHAIN, DATAFLOW, REPLICATION_FLOW)"},
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "List of tasks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/Task"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}": {
+      "get": {
+        "operationId": "getTask",
+        "summary": "Get a specific task",
+        "description": "Returns detailed configuration and status of a Datasphere task",
+        "parameters": [
+          {"name": "taskId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Task details",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Task"}}}
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}/run": {
+      "post": {
+        "operationId": "runTask",
+        "summary": "Execute a task",
+        "description": "Triggers immediate execution of a Datasphere task (task chain, data flow, etc.)",
+        "parameters": [
+          {"name": "taskId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "parameters": {"type": "object", "description": "Optional runtime parameters"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Task execution started",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/TaskRun"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}/runs": {
+      "get": {
+        "operationId": "getTaskRuns",
+        "summary": "Get run history for a task",
+        "description": "Returns the execution history of a specific Datasphere task",
+        "parameters": [
+          {"name": "taskId", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}},
+          {"name": "status", "in": "query", "schema": {"type": "string", "enum": ["RUNNING", "COMPLETED", "FAILED", "CANCELLED"]}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Task run history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/TaskRun"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}/runs/{runId}/logs": {
+      "get": {
+        "operationId": "getTaskRunLogs",
+        "summary": "Get logs for a task run",
+        "description": "Returns detailed execution logs for a specific task run",
+        "parameters": [
+          {"name": "taskId", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "runId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Task run logs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "logs": {"type": "array", "items": {"type": "string"}},
+                    "status": {"type": "string"},
+                    "totalRows": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "properties": {
+          "taskId": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "type": {"type": "string"},
+          "spaceId": {"type": "string"},
+          "status": {"type": "string", "enum": ["ACTIVE", "INACTIVE", "RUNNING", "FAILED"]},
+          "schedule": {"type": "string", "description": "Cron expression for scheduled execution"},
+          "lastRunAt": {"type": "string", "format": "date-time"},
+          "nextRunAt": {"type": "string", "format": "date-time"},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "modifiedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "TaskRun": {
+        "type": "object",
+        "properties": {
+          "runId": {"type": "string"},
+          "taskId": {"type": "string"},
+          "status": {"type": "string", "enum": ["RUNNING", "COMPLETED", "FAILED", "CANCELLED"]},
+          "startedAt": {"type": "string", "format": "date-time"},
+          "completedAt": {"type": "string", "format": "date-time"},
+          "durationMs": {"type": "integer"},
+          "rowsProcessed": {"type": "integer"},
+          "errorMessage": {"type": "string"}
+        }
+      }
+    }
+  }
+}

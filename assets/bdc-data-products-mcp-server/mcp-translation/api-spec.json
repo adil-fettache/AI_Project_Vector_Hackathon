@@ -1,0 +1,194 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Data Products",
+    "version": "1.0.0",
+    "description": "SAP Business Data Cloud Data Products API for discovering, activating and managing SAP-managed data products"
+  },
+  "paths": {
+    "/dataProducts": {
+      "get": {
+        "operationId": "listDataProducts",
+        "summary": "List all available data products",
+        "description": "Returns a list of all available SAP-managed data products in the BDC catalog",
+        "parameters": [
+          {"name": "$top", "in": "query", "schema": {"type": "integer"}, "description": "Maximum number of records to return"},
+          {"name": "$skip", "in": "query", "schema": {"type": "integer"}, "description": "Number of records to skip"},
+          {"name": "$filter", "in": "query", "schema": {"type": "string"}, "description": "OData filter expression"},
+          {"name": "$search", "in": "query", "schema": {"type": "string"}, "description": "Full-text search term"},
+          {"name": "status", "in": "query", "schema": {"type": "string", "enum": ["ACTIVE", "INACTIVE", "DEPRECATED"]}, "description": "Filter by activation status"}
+        ],
+        "responses": {
+          "200": {
+            "description": "List of data products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/DataProduct"}},
+                    "@odata.count": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dataProducts/{id}": {
+      "get": {
+        "operationId": "getDataProduct",
+        "summary": "Get a specific data product by ID",
+        "description": "Returns detailed information about a specific SAP-managed data product including its schema, status and usage",
+        "parameters": [
+          {"name": "id", "in": "path", "required": true, "schema": {"type": "string"}, "description": "Data product ID"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Data product details",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/DataProduct"}}}
+          }
+        }
+      }
+    },
+    "/dataProducts/{id}/activate": {
+      "post": {
+        "operationId": "activateDataProduct",
+        "summary": "Activate a data product",
+        "description": "Initiates the activation workflow for an SAP-managed data product, making it available for consumption",
+        "parameters": [
+          {"name": "id", "in": "path", "required": true, "schema": {"type": "string"}, "description": "Data product ID to activate"}
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "targetSpace": {"type": "string", "description": "Target Datasphere space ID"},
+                  "schedule": {"type": "string", "description": "Replication schedule (e.g. HOURLY, DAILY)"},
+                  "loadType": {"type": "string", "enum": ["FULL", "DELTA"], "description": "Data load type"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Activation initiated",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ActivationJob"}}}
+          }
+        }
+      }
+    },
+    "/dataProducts/{id}/deactivate": {
+      "post": {
+        "operationId": "deactivateDataProduct",
+        "summary": "Deactivate a data product",
+        "description": "Deactivates a previously activated SAP-managed data product",
+        "parameters": [
+          {"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {"202": {"description": "Deactivation initiated"}}
+      }
+    },
+    "/dataProducts/{id}/status": {
+      "get": {
+        "operationId": "getDataProductActivationStatus",
+        "summary": "Get activation status of a data product",
+        "description": "Returns the current activation status, replication state and last run time of a data product",
+        "parameters": [
+          {"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Activation status",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ActivationStatus"}}}
+          }
+        }
+      }
+    },
+    "/activationJobs": {
+      "get": {
+        "operationId": "listActivationJobs",
+        "summary": "List all activation jobs",
+        "description": "Returns a list of all data product activation and deactivation jobs with their current status",
+        "responses": {
+          "200": {
+            "description": "List of activation jobs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "value": {"type": "array", "items": {"$ref": "#/components/schemas/ActivationJob"}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/activationJobs/{jobId}": {
+      "get": {
+        "operationId": "getActivationJob",
+        "summary": "Get status of a specific activation job",
+        "description": "Returns detailed status and logs of a specific data product activation job",
+        "parameters": [
+          {"name": "jobId", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Activation job details",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ActivationJob"}}}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DataProduct": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "sourceSystem": {"type": "string"},
+          "category": {"type": "string"},
+          "status": {"type": "string", "enum": ["ACTIVE", "INACTIVE", "DEPRECATED"]},
+          "version": {"type": "string"},
+          "owner": {"type": "string"},
+          "tags": {"type": "array", "items": {"type": "string"}},
+          "activatedAt": {"type": "string", "format": "date-time"},
+          "lastModified": {"type": "string", "format": "date-time"}
+        }
+      },
+      "ActivationJob": {
+        "type": "object",
+        "properties": {
+          "jobId": {"type": "string"},
+          "dataProductId": {"type": "string"},
+          "type": {"type": "string", "enum": ["ACTIVATE", "DEACTIVATE"]},
+          "status": {"type": "string", "enum": ["PENDING", "RUNNING", "SUCCEEDED", "FAILED"]},
+          "startedAt": {"type": "string", "format": "date-time"},
+          "completedAt": {"type": "string", "format": "date-time"},
+          "errorMessage": {"type": "string"}
+        }
+      },
+      "ActivationStatus": {
+        "type": "object",
+        "properties": {
+          "dataProductId": {"type": "string"},
+          "activationStatus": {"type": "string", "enum": ["ACTIVE", "INACTIVE", "ACTIVATING", "DEACTIVATING", "FAILED"]},
+          "replicationStatus": {"type": "string", "enum": ["RUNNING", "COMPLETED", "FAILED", "PAUSED"]},
+          "lastReplicationAt": {"type": "string", "format": "date-time"},
+          "nextReplicationAt": {"type": "string", "format": "date-time"},
+          "recordCount": {"type": "integer"}
+        }
+      }
+    }
+  }
+}
